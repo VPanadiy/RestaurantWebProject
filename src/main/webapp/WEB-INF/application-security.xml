@@ -9,6 +9,8 @@
 
     <http use-expressions="true">
 
+        <access-denied-handler error-page="/accessDenied" />
+
         <intercept-url pattern="/user" access="isAuthenticated()"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
+
 /**
  * Handles requests for the application home page.
  */
@@ -15,6 +17,23 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+    @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
+    public ModelAndView accesssDenied(Principal user) {
+
+        ModelAndView model = new ModelAndView();
+
+        // пока русский текст без локализации, хотя так не рекомендуется!
+        if (user != null) {
+            model.addObject("errorMsg", user.getName() + " у вас нет доступа к этой странице!");
+        } else {
+            model.addObject("errorMsg", "У вас нет доступа к этой странице!");
+        }
+
+        model.setViewName("/content/accessDenied");
+        return model;
+
+    }
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String mainPage() {

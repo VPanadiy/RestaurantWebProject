@@ -4,7 +4,7 @@
 <html>
 <head>
 
-    <link href="resources/css/home.css" rel="stylesheet"/>
+    <link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
