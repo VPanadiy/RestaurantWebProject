@@ -21,7 +21,14 @@
                     username-parameter="user_login"
                     password-parameter="password_login"/>
 
-        <logout logout-success-url="/login" />
+        <logout logout-success-url="/login" delete-cookies="JSESSIONID"/>
+
+        <csrf/>
+
+        <remember-me
+                key="myAppKey"
+                remember-me-parameter="_spring_security_remember_me"
+                remember-me-cookie="SPRING_SECURITY_REMEMBER_ME_COOKIE" />
     </http>
 
     <authentication-manager>

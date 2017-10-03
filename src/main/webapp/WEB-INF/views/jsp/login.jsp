@@ -21,6 +21,7 @@
     </fieldset>
 
     <footer>
+        <input name="_spring_security_remember_me" type="checkbox"/>Remember Me?<br />
         <input type="submit" class="btnLogin" value="Submit">
 
         <c:if test="${not empty error}">
