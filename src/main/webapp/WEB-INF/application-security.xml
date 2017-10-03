@@ -23,7 +23,6 @@
 
         <logout logout-success-url="/login" delete-cookies="JSESSIONID"/>
 
-        <!--delete-cookies="JSESSIONID"-->
         <csrf/>
 
         <remember-me
@@ -40,8 +39,13 @@
     </beans:bean>
 
     <authentication-manager>
-        <authentication-provider user-service-ref="jdbcGroupsImpl"/>
+        <authentication-provider user-service-ref="jdbcGroupsImpl">
+            <password-encoder ref="bcrypt" />
+        </authentication-provider>
     </authentication-manager>
 
+    <beans:bean id="bcrypt" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg name="strength" value="11" />
+    </beans:bean>
 
 </beans:beans>

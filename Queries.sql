@@ -25,6 +25,8 @@ ALTER TABLE TABLE_NAME RENAME COLUMN COLUMN_NAME TO COLUMN_NAME;
 UPDATE TABLE_NAME SET COLUMN_NAME = column_argument;
 -- Set unique of certain column --
 ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (thecolumn);
+-- Alter column size --
+ALTER TABLE users ALTER COLUMN password TYPE character varying(60);
 
 INSERT INTO table_name (code, title, did, date_prod, kind)
 VALUES ('T_601', 'Yojimbo', 106, '1961-06-16', 'Drama');
