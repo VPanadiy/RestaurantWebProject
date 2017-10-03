@@ -23,6 +23,7 @@
 
         <logout logout-success-url="/login" delete-cookies="JSESSIONID"/>
 
+        <!--delete-cookies="JSESSIONID"-->
         <csrf/>
 
         <remember-me
@@ -32,10 +33,15 @@
                 data-source-ref="dataSource" />
     </http>
 
+    <beans:bean id="jdbcGroupsImpl" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <beans:property name="enableGroups" value="true" />
+        <beans:property name="enableAuthorities" value="false" />
+        <beans:property name="dataSource" ref="dataSource" />
+    </beans:bean>
+
     <authentication-manager>
-        <authentication-provider>
-            <jdbc-user-service data-source-ref="dataSource"/>
-        </authentication-provider>
+        <authentication-provider user-service-ref="jdbcGroupsImpl"/>
     </authentication-manager>
+
 
 </beans:beans>
