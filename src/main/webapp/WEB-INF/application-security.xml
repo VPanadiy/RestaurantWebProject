@@ -28,15 +28,13 @@
         <remember-me
                 key="myAppKey"
                 remember-me-parameter="_spring_security_remember_me"
-                remember-me-cookie="SPRING_SECURITY_REMEMBER_ME_COOKIE" />
+                remember-me-cookie="SPRING_SECURITY_REMEMBER_ME_COOKIE"
+                data-source-ref="dataSource" />
     </http>
 
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="user" password="user" authorities="ROLE_USER"/>
-                <user name="admin" password="admin" authorities="ROLE_ADMIN"/>
-            </user-service>
+            <jdbc-user-service data-source-ref="dataSource"/>
         </authentication-provider>
     </authentication-manager>
 

@@ -7,6 +7,4 @@
 
     <import resource="hibernate-context.xml"/>
 
-    <import resource="dispatcher-context.xml"/>
-
 </beans>
