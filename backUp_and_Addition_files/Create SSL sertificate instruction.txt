@@ -1,0 +1,63 @@
+Follow next steps to create ssl sertificate for TomCat 9
+
+1.Run CMD and type:
+
+cd %JAVA_HOME%/bin
+
+2.Enter next command:
+
+keytool -genkey -alias tomcat -keyalg RSA
+
+3.Fill up like below:
+
+Enter keystore password:  password
+Re-enter new password: password
+What is your first and last name?
+  [Unknown]:  Name Surname
+What is the name of your organizational unit?
+  [Unknown]:  home
+What is the name of your organization?
+  [Unknown]:  home
+What is the name of your City or Locality?
+  [Unknown]:  Ukraine
+What is the name of your State or Province?
+  [Unknown]:  Kiev
+What is the two-letter country code for this unit?
+  [Unknown]:  UA
+Is CN=Name Surname, OU=home, O=home, L=Ukraine, ST=Kiev, C=UA correct?
+  [no]:  yes
+ 
+Enter key password for
+    (RETURN if same as keystore password):  password
+Re-enter new password: password
+
+Now .keystore created on C:\Users\UserName.
+4.Find the following declaration:
+
+<!-- Define a SSL/TLS HTTP/1.1 Connector on port 8443
+         This connector uses the NIO implementation. The default
+         SSLImplementation will depend on the presence of the APR/native
+         library and the useOpenSSL attribute of the
+         AprLifecycleListener.
+         Either JSSE or OpenSSL style configuration may be used regardless of
+         the SSLImplementation selected. JSSE style configuration is used below.
+    -->
+	<!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="conf/localhost-rsa.jks"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+    -->
+	
+Uncomment it and modify it to look like the following:	
+	
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" 
+               keystoreFile="/Users/UserName/.keystore"
+			   keystorePass="password" />	
+			   
+5.Restart TomCat and go to https://localhost:8443

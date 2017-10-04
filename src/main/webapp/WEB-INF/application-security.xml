@@ -11,6 +11,12 @@
 
         <access-denied-handler error-page="/accessDenied" />
 
+        <intercept-url pattern="/**" requires-channel="https" />
+
+        <port-mappings>
+            <port-mapping http="8080" https="8443" />
+        </port-mappings>
+
         <intercept-url pattern="/user" access="isAuthenticated()"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 
