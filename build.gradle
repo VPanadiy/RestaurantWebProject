@@ -4,7 +4,6 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'war'
 
-
 sourceCompatibility = 1.8
 
 repositories {
@@ -31,6 +30,8 @@ dependencies {
 
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.3.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.3.RELEASE'
+
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.2.Final'
 
     compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'

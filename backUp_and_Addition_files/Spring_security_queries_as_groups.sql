@@ -5,8 +5,17 @@
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
+  id SERIAL,
   username varchar(45) NOT NULL,
-  password varchar(45) NOT NULL,
+  first_name varchar(45),
+  last_name varchar(45),
+  email varchar(60) NOT NULL,
+  password varchar(60) NOT NULL,
+  date_birth DATE,
+  gender varchar(45),
+  phone_number TEXT,
+  second_email varchar(60),
+  country varchar(45),
   enabled smallint NOT NULL DEFAULT '1',
   PRIMARY KEY (username)
 );
@@ -15,7 +24,7 @@ CREATE TABLE users (
 -- Dumping data for table 'users'
 --
 
-INSERT INTO users VALUES ('admin','admin',1),('user','user',1);
+INSERT INTO users(username, email, password) VALUES ('admin','admin@gmail.com','admin',1),('user','user@gmail.com','user'1);
 
 --
 -- Table structure for table 'groups'

@@ -7,9 +7,12 @@
     <bean id="employeeService" class="dream.development.service.EmployeeService"/>
     <bean id="menuService" class="dream.development.service.MenuService"/>
     <bean id="dishService" class="dream.development.service.DishService"/>
+    <bean id="usersService" class="dream.development.service.UserService"/>
 
     <bean id="employeeDao" class="dream.development.dao.hibernate.HEmployeeDao"/>
     <bean id="menuDao" class="dream.development.dao.hibernate.HMenuDao"/>
     <bean id="dishDao" class="dream.development.dao.hibernate.HDishDao"/>
+    <bean id="usersDao" class="dream.development.dao.hibernate.HUsersDao"/>
+    <bean id="groupMembersDao" class="dream.development.dao.hibernate.HGroupMembersDao"/>
 
 </beans>

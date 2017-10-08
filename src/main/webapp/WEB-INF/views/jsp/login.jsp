@@ -1,35 +1,65 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <link href="<%=request.getContextPath()%>/resources/css/home.css" rel="stylesheet"/>
+    <title>Log in with your account</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
 
-<form method="POST" action="j_spring_security_check" class="box login">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <fieldset class="boxBody">
-        <label> Username </label> <input type='text' name='user_login' value=''>
-        <label> Password </label> <input type='password' name='password_login'/>
-    </fieldset>
+<div class="container">
 
-    <footer>
-        <input name="_spring_security_remember_me" type="checkbox"/>Remember Me?<br />
-        <input type="submit" class="btnLogin" value="Submit">
+    <form method="POST" action="j_spring_security_check" class="form-signin">
+        <h2 class="form-heading">Log in</h2>
 
-        <c:if test="${not empty error}">
-            <span class="error">${error}</span>
-        </c:if>
-    </footer>
+        <div class="form-group ${error != null ? 'has-error' : ''}">
+            <%--<span>${message}</span>--%>
+            <input name="user_login" type="text" class="form-control" placeholder="Username"
+                   autofocus/>
+            <input name="password_login" type="password" class="form-control" placeholder="Password"/>
 
-</form>
+            <c:if test="${not empty error}">
+                <span class="error">${error}</span>
+            </c:if>
 
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+            <footer>
+                <input name="_spring_security_remember_me" type="checkbox"/>Remember Me?<br/>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+                <h4 class="text-center"><a href="<c:url value="/registration"/>">Create an account</a></h4>
+            </footer>
+
+        </div>
+
+    </form>
+
+</div>
+<!-- /container -->
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.2.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

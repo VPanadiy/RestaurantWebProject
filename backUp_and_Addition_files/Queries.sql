@@ -16,18 +16,26 @@ SELECT WAREHOUSE.INGREDIENT_ID AS ID, INGREDIENT.NAME, WAREHOUSE.AMOUNT, WAREHOU
 
 -- QUERIES EXAMPLE --
 -- delete row example --
-DELETE FROM TABLE_NAME WHERE ID = ?;
+DELETE FROM table_name WHERE ID = ?;
 -- Add column --
-ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_NAME column_type;
+ALTER TABLE table_name ADD COLUMN column_name column_type;
 -- Rename column --
-ALTER TABLE TABLE_NAME RENAME COLUMN COLUMN_NAME TO COLUMN_NAME;
+ALTER TABLE table_name RENAME COLUMN column_name TO column_name;
 -- Set value of certain column --
-UPDATE TABLE_NAME SET COLUMN_NAME = column_argument;
+UPDATE table_name SET column_name = column_argument;
 -- Set unique of certain column --
 ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (thecolumn);
 -- Alter column size --
-ALTER TABLE users ALTER COLUMN password TYPE character varying(60);
-
-INSERT INTO table_name (code, title, did, date_prod, kind)
-VALUES ('T_601', 'Yojimbo', 106, '1961-06-16', 'Drama');
-delete from dish_to_ingredient WHERE dish_id is null;
+ALTER TABLE table_name ALTER COLUMN column_name TYPE character varying(60);
+-- Alter column --
+ALTER TABLE table_name add COLUMN column_name BOOLEAN NOT NULL DEFAULT TRUE;
+-- Drop constraint --
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+-- Change column position --
+alter table table_name rename to oldtable;
+create table tablename (column defs go here);
+insert into table_name (column1, column2, column3) select column1, column2, column3 from oldtable;
+-- Insert values --
+INSERT INTO table_name (column1, column2, column3)VALUES('string_value', 'date_value', number_value);
+-- Delete by criteria --
+delete from dtable_name WHERE column_name is null;
