@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -6,7 +7,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,17 +29,19 @@
 </head>
 
 <body>
+<spring:message code="language" text="Language :" /><a href="?lang=en"><spring:message code="english" text="English" /></a> | <a href="?lang=ru"><spring:message code="russia" text="Russia" /></a> | <a href="?lang=ua"><spring:message code="ukraine" text="Ukraine" /></a>
+<spring:message code="locale" text="Current Locale : " />${pageContext.response.locale}
 
 <div class="container">
 
     <form method="POST" action="j_spring_security_check" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
+        <h2 class="form-heading"><spring:message code="login" text="Login" /></h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
-            <%--<span>${message}</span>--%>
-            <input name="user_login" type="text" class="form-control" placeholder="Username"
+
+            <input name="user_login" type="text" class="form-control" placeholder="<spring:message code="username" text="Username" />"
                    autofocus/>
-            <input name="password_login" type="password" class="form-control" placeholder="Password"/>
+            <input name="password_login" type="password" class="form-control" placeholder="<spring:message code="password" text="Password" />"/>
 
             <c:if test="${not empty error}">
                 <span class="error">${error}</span>
@@ -47,10 +50,10 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <footer>
-                <input name="_spring_security_remember_me" type="checkbox"/>Remember Me?<br/>
+                <input name="_spring_security_remember_me" type="checkbox"/><spring:message code="rememberMe" text="Remember me?" /><br/>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-                <h4 class="text-center"><a href="<c:url value="/registration"/>">Create an account</a></h4>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="login" text="Log in" /></button>
+                <h4 class="text-center"><a href="<c:url value="/registration"/>"><spring:message code="createAccount" text="Create an account" /></a></h4>
             </footer>
 
         </div>

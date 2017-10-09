@@ -19,19 +19,23 @@ public class Users {
     private long id;
 
     @Column(name = "username")
-    @NotEmpty(message = "*Please provide your username")
-    @Length(min = 4, message = "*Your username must have at least 4 characters")
+    @NotEmpty(message = "{username.notEmpty.error}")
+    @Length(min = 4, message = "{username.length.min.error}")
+    @Length(max = 20, message = "{username.length.max.error}")
     private String username;
 
     @Column(name = "first_name")
+    @Length(max = 20, message = "{username.length.max.error}")
     private String firstName;
 
     @Column(name = "last_name")
+    @Length(max = 20, message = "{username.length.max.error}")
     private String lastName;
 
     @Column(name = "email")
-    @NotEmpty(message = "*Please provide an email")
-    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "{email.notEmpty.error}")
+    @Email(message = "{email.valid.error}")
+    @Length(max = 30, message = "{email.length.max.error}")
     private String email;
 
     @Column(name = "password")
@@ -49,7 +53,8 @@ public class Users {
     private String phoneNumber;
 
     @Column(name = "second_email")
-    @Email(message = "*Please provide a valid Email")
+    @Email(message = "{email.valid.error}")
+    @Length(max = 30, message = "{email.length.max.error}")
     private String secondEmail;
 
     @Column(name = "country")

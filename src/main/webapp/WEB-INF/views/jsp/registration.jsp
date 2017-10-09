@@ -30,6 +30,8 @@
 </head>
 
 <body>
+<spring:message code="language" text="Language :" /><a href="?lang=en"><spring:message code="english" text="English" /></a> | <a href="?lang=ru"><spring:message code="russia" text="Russia" /></a> | <a href="?lang=ua"><spring:message code="ukraine" text="Ukraine" /></a>
+<spring:message code="locale" text="Current Locale : " />${pageContext.response.locale}
 
 <div class="container">
 

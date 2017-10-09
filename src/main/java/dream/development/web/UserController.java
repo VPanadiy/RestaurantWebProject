@@ -5,6 +5,7 @@ import dream.development.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private MessageSource messageSource;
 
     private UserService userService;
 
@@ -41,6 +45,7 @@ public class UserController {
             modelAndView.setViewName("registration");
         } else {
             userService.saveUser(user);
+            //@successMessage@ might not working
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("users", new Users());
             modelAndView.setViewName("registration");
