@@ -31,6 +31,14 @@ public class HUsersDao implements UsersDao {
         return (Users) query.uniqueResult();
     }
 
+    @Override
+    public Users findByName(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT u FROM Users u WHERE u.username LIKE :username");
+        query.setParameter("username", username);
+        return (Users) query.uniqueResult();
+    }
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

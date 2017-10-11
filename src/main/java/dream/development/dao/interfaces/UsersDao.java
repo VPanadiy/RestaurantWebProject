@@ -7,4 +7,6 @@ public interface UsersDao {
     void insert(Users user);
 
     Users findByEmail(String email);
+
+    Users findByName(String username);
 }

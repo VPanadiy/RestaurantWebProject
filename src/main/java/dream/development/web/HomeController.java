@@ -1,7 +1,9 @@
 package dream.development.web;
 
+import dream.development.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,8 @@ import java.security.Principal;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	private UserService userService;
 
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
     public ModelAndView accessDenied(Principal user) {
@@ -36,9 +40,11 @@ public class HomeController {
     }
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String mainPage() {
-
-		return "content/user";
+	public ModelAndView userPage(Principal user) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user",userService.findUserByName(user.getName()));
+		modelAndView.setViewName("content/user");
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -59,4 +65,9 @@ public class HomeController {
 
 		return model;
 	}
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 }

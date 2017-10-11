@@ -17,6 +17,7 @@
 <!-- /HEADER -->
 <!-- MAIN SECTION -->
 <body>
+<p align="center">${welcome} ${username}</p>
 <h2>Time now is: ${currentTime}</h2>
 <h1>Ресторан "DREAM DISH"</h1>
 

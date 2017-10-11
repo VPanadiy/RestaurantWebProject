@@ -28,6 +28,11 @@ public class UserService {
         return usersDao.findByEmail(email);
     }
 
+    @Transactional
+    public Users findUserByName(String username) {
+        return usersDao.findByName(username);
+    }
+
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
