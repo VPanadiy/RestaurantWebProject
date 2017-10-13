@@ -27,6 +27,18 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script type="text/javascript">
+        function doAjax() {
+            $.ajax({
+                url: 'checkStrength',
+                data: ({password : $('#password').val()}),
+                success: function(data) {
+                    $('#strengthValue').html(data);
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -64,8 +76,9 @@
 
             <div class="form-group">
                 <form:label path="password">Password:</form:label>
-                <form:password path="password" class="form-control" placeholder="Password"/>
+                <form:password path="password" class="form-control" placeholder="Password" onkeyup="doAjax()"/>
                 <form:errors path="password" cssClass="has-error"/>
+                <span style="float: right" id="strengthValue"></span>
             </div>
 
             <div class="form-group">
@@ -103,7 +116,8 @@
 
 </div>
 <!-- /container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>--%>
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.2.1.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

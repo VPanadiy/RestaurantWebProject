@@ -4,6 +4,7 @@ import dream.development.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.Locale;
 
 /**
  * Handles requests for the application home page.
@@ -20,18 +22,20 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
+	@Autowired
+	private MessageSource messageSource;
+
 	private UserService userService;
 
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
-    public ModelAndView accessDenied(Principal user) {
+    public ModelAndView accessDenied(Locale locale, Principal user) {
 
         ModelAndView model = new ModelAndView();
 
-        // пока русский текст без локализации, хотя так не рекомендуется!
         if (user != null) {
-            model.addObject("errorMsg", user.getName() + " у вас нет доступа к этой странице!");
+            model.addObject("errorMsg", user.getName() + messageSource.getMessage("accessDenied", new String[] { locale.getDisplayName(locale) }, locale));
         } else {
-            model.addObject("errorMsg", "У вас нет доступа к этой странице!");
+            model.addObject("errorMsg", messageSource.getMessage("accessDeniedStringBegin", new String[] { locale.getDisplayName(locale) }, locale));
         }
 
         model.setViewName("/content/accessDenied");

@@ -1,6 +1,7 @@
 package dream.development.web;
 
 import dream.development.model.objects.UploadedFile;
+import dream.development.service.UserService;
 import dream.development.validators.FileValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 
 
 @Controller
@@ -26,13 +28,16 @@ public class FileController {
 	@Autowired
 	private FileValidator fileValidator;
 
+    private UserService userService;
+
 	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView uploadFile(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) {// имена параметров - как на форме jsp
+	public ModelAndView uploadFile(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result, Principal user) throws IOException {
 
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("user",userService.findUserByName(user.getName()));
 
 		String fileName = null;
 
@@ -70,8 +75,7 @@ public class FileController {
 				modelAndView.addObject("filename", fileName);
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new IOException("Oops! Something went wrong!");
 			}
 
 		}
@@ -84,4 +88,8 @@ public class FileController {
 		return "content/fileUploaded";
 	}
 
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 }
