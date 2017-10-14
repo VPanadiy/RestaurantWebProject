@@ -25,11 +25,16 @@
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
     in the /WEB-INF/views/jsp directory -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="2"/>
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/views/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <bean id="viewPDFResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+        <property name="order" value="1"/>
+        <property name="basename" value="views"/>
+    </bean>
     <!--Include method security-->
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"
                                      jsr250-annotations="enabled"/>

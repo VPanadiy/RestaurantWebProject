@@ -1,7 +1,6 @@
 package dream.development.web;
 
 import dream.development.model.objects.UploadedFile;
-import dream.development.service.UserService;
 import dream.development.validators.FileValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,78 +17,72 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.Principal;
-
 
 @Controller
 @SessionAttributes("filename")
 public class FileController {
 
-	@Autowired
-	private FileValidator fileValidator;
+    private FileValidator fileValidator;
 
-    private UserService userService;
+    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
-	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView uploadFile(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) throws IOException {
 
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	@ResponseBody
-	public ModelAndView uploadFile(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result, Principal user) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
 
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("user",userService.findUserByName(user.getName()));
+        String fileName;
 
-		String fileName = null;
+        MultipartFile file = uploadedFile.getFile();
+        fileValidator.validate(uploadedFile, result);
 
-		MultipartFile file = uploadedFile.getFile();
-		fileValidator.validate(uploadedFile, result);
+        if (result.hasErrors()) {
+            modelAndView.setViewName("content/user");
+        } else {
 
-		if (result.hasErrors()) {
-			modelAndView.setViewName("content/user");
-		} else {
+            try {
+                byte[] bytes = file.getBytes();
 
-			try {
-				byte[] bytes = file.getBytes();
+                fileName = file.getOriginalFilename();
 
-				fileName = file.getOriginalFilename();
+                String rootPath = System.getProperty("catalina.home");
+                File dir = new File(rootPath + File.separator + "tmpFiles");
 
-				String rootPath = System.getProperty("catalina.home");
-				File dir = new File(rootPath + File.separator + "tmpFiles");
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
 
-				if (!dir.exists()) {
-					dir.mkdirs();
-				}
+                File loadFile = new File(dir.getAbsolutePath() + File.separator + fileName);
 
-				File loadFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(loadFile));
+                stream.write(bytes);
+                stream.flush();
+                stream.close();
 
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(loadFile));
-				stream.write(bytes);
-				stream.flush();
-				stream.close();
+                logger.info("uploaded: " + loadFile.getAbsolutePath());
 
-				logger.info("uploaded: " + loadFile.getAbsolutePath());
+                RedirectView redirectView = new RedirectView("fileUploaded");
+                redirectView.setStatusCode(HttpStatus.FOUND);
+                modelAndView.setView(redirectView);
+                modelAndView.addObject("filename", fileName);
 
-				RedirectView redirectView = new RedirectView("fileUploaded");
-				redirectView.setStatusCode(HttpStatus.FOUND);
-				modelAndView.setView(redirectView);
-				modelAndView.addObject("filename", fileName);
+            } catch (IOException e) {
+                throw new IOException("Oops! Something went wrong!");
+            }
 
-			} catch (IOException e) {
-				throw new IOException("Oops! Something went wrong!");
-			}
+        }
 
-		}
+        return modelAndView;
+    }
 
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "/fileUploaded", method = RequestMethod.GET)
-	public String fileUploaded() {
-		return "content/fileUploaded";
-	}
+    @RequestMapping(value = "/fileUploaded", method = RequestMethod.GET)
+    public String fileUploaded() {
+        return "content/fileUploaded";
+    }
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setFileValidator(FileValidator fileValidator) {
+        this.fileValidator = fileValidator;
     }
 }

@@ -10,6 +10,8 @@ User page!
 <p>Hello ${user.username}!</p>
 <p>Your password is ${user.password}!</p>
 
+<h3><a href="downloadPDF">Download PDF Document</a></h3>
+
 <form:form action="${pageContext.request.contextPath}/logout" method="POST">
     <input type="submit" value="Logout" />
 </form:form>

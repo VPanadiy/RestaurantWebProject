@@ -32,6 +32,7 @@
                 <input id="searchSubmit" type="submit" value="Search">
             </form>
         </td>
+        <td><a href="<c:url value="/login"/>">Login</a></td>
     </tr>
 </table>
 
