@@ -1,6 +1,8 @@
 package dream.development.web;
 
+import dream.development.model.Users;
 import dream.development.service.UserService;
+import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Locale;
@@ -61,10 +64,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ModelAndView userPage(Principal user) {
+    public ModelAndView userPage(Principal user) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
+        Users loggedInUser = userService.findUserByName(user.getName());
         modelAndView.addObject("currentTime", new Date().toString());
-        modelAndView.addObject("user", userService.findUserByName(user.getName()));
+        modelAndView.addObject("user", loggedInUser);
+
+        byte[] encodeBase64 = Base64.encode(loggedInUser.getImageData());
+        String base64Encoded = new String(encodeBase64, "UTF-8");
+        modelAndView.addObject("userImage", base64Encoded );
+
         modelAndView.setViewName("content/user");
         return modelAndView;
     }

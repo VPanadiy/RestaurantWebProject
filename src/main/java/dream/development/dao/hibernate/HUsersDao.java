@@ -32,11 +32,18 @@ public class HUsersDao implements UsersDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public Users findByName(String username) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("SELECT u FROM Users u WHERE u.username LIKE :username");
         query.setParameter("username", username);
         return (Users) query.uniqueResult();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void insertProfileImage(Users user) {
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

@@ -1,6 +1,8 @@
 package dream.development.web;
 
+import dream.development.model.Users;
 import dream.development.model.objects.UploadedFile;
+import dream.development.service.UserService;
 import dream.development.validators.FileValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,12 +30,13 @@ public class FileController {
 
     private MessageSource messageSource;
     private FileValidator fileValidator;
+    private UserService userService;
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView uploadFile(Locale locale, @ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) throws IOException {
+    public ModelAndView uploadFile(Locale locale, Principal user, @ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) throws IOException {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("currentTime", new Date().toString());
@@ -65,6 +69,9 @@ public class FileController {
                 stream.flush();
                 stream.close();
 
+                Users loggedInUser = userService.findUserByName(user.getName());
+                loggedInUser.setImageData(uploadedFile.getFile().getBytes());
+                userService.saveProfileImage(loggedInUser);
                 logger.info("uploaded: " + loadFile.getAbsolutePath());
 
                 RedirectView redirectView = new RedirectView("fileUploaded");
@@ -97,5 +104,10 @@ public class FileController {
     @Autowired
     public void setFileValidator(FileValidator fileValidator) {
         this.fileValidator = fileValidator;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

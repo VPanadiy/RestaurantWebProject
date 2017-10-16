@@ -33,6 +33,11 @@ public class UserService {
         return usersDao.findByName(username);
     }
 
+    @Transactional
+    public void saveProfileImage(Users user) {
+        usersDao.insertProfileImage(user);
+    }
+
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }

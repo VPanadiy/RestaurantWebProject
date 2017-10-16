@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "users")
@@ -62,6 +63,9 @@ public class Users {
 
     @Column(name = "enabled", nullable = false, columnDefinition = "short default 1") // 1 - enabled;
     private short enabled = 1;
+
+    @Column(name = "image_data")
+    private byte[] imageData;
 
     public long getId() {
         return id;
@@ -159,6 +163,14 @@ public class Users {
         this.enabled = enabled;
     }
 
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
@@ -174,6 +186,7 @@ public class Users {
                 ", secondEmail='" + secondEmail + '\'' +
                 ", country='" + country + '\'' +
                 ", enabled=" + enabled +
+                ", imageData=" + Arrays.toString(imageData) +
                 '}';
     }
 }
