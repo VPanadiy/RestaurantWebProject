@@ -54,7 +54,7 @@
 
 <div class="container">
 
-    <form method="POST" action="j_spring_security_check" class="form-signin">
+    <form:form method="POST" action="j_spring_security_check" class="form-signin">
         <h2 class="form-heading"><spring:message code="login" text="Login"/></h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
@@ -69,8 +69,6 @@
                 <span class="error">${error}</span>
             </c:if>
 
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
             <footer>
                 <input name="_spring_security_remember_me" type="checkbox"/><spring:message code="rememberMe"
                                                                                             text="Remember me?"/><br/>
@@ -84,7 +82,7 @@
 
         </div>
 
-    </form>
+    </form:form>
 
 </div>
 </body>

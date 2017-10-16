@@ -55,8 +55,7 @@
         <td width="10%"><a href="<c:url value="/plan"/>"><spring:message code="plan" text="Plan"/></a></td>
         <td width="10%"><a href="<c:url value="/contacts"/>"><spring:message code="contacts" text="Contacts"/></a></td>
         <td>
-            <form style="margin: 5px" id="searchForm" action="<c:url value="/searchPage"/>" method="POST">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <form:form style="margin: 5px" id="searchForm" action="/searchPage" method="POST">
                 <label for="searchButton"><spring:message code="search" text="Search"/>:</label><input class="inputMain"
                                                                                                        type="text"
                                                                                                        id="searchButton"
@@ -64,7 +63,7 @@
                                                                                                        placeholder="<spring:message code="search" text="Search"/>"><input
                     id="searchSubmit" class="inputMain" type="submit"
                     value="<spring:message code="search" text="Search"/>">
-            </form>
+            </form:form>
         </td>
         <td width="10%">
             <c:choose>

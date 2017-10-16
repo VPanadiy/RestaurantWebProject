@@ -66,8 +66,7 @@
         <tr class="trNone">
             <td class="tdNone"><spring:message code="uploadFile" text="Upload File"/>:</td>
             <td class="tdNone"><input type="file" name="file"></td>
-            <td style="color: red; font-style: italic; border: none">
-                <form:errors path="file"/></td>
+            <td style="color: red; font-style: italic; border: none"><form:errors path="file"/></td>
         </tr>
         <tr class="trNone">
             <td class="tdNone"></td>
@@ -75,6 +74,7 @@
             <td class="tdNone"></td>
         </tr>
     </table>
+
 </form:form>
 
 <form:form action="${pageContext.request.contextPath}/logout" method="POST">
