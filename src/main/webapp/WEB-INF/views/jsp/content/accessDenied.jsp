@@ -1,13 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<%@ page errorPage="../error.jsp" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
+<!-- HEADER -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +37,11 @@
     <link rel="icon" type="image/x-icon"
           href="<s:url value="../../../../resources/images/favicon.ico"/>"/>
 </head>
+<!-- /HEADER -->
+<!-- MAIN SECTION -->
 <body>
+
+<%@ include file="../navigation.jsp" %>
 
 <h1><spring:message code="accessDenied" text="Access denied!"/></h1>
 <h2>${errorMsg}</h2>
@@ -41,4 +49,12 @@
 <spring:message code="goHome" text="to go back to the Homepage."/>
 
 </body>
+<!-- /MAIN SECTION -->
+<!-- FOOTER -->
+<footer>
+
+    <%@ include file="../footer.jsp" %>
+
+</footer>
+<!-- /FOOTER -->
 </html>

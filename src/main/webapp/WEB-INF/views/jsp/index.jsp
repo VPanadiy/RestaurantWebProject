@@ -1,54 +1,58 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: Администратор
-  Date: 14.08.2017
-  Time: 19:44
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<%@ page errorPage="error.jsp" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+<!DOCTYPE html>
+
+<html lang="en">
 <!-- HEADER -->
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Main page">
+    <meta name="author" content="VPanadiy">
+
     <title>Dream Dish</title>
-    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+
+    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../../../resources/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../../resources/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../../../resources/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../../../resources/js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="icon" type="image/x-icon"
+          href="<s:url value="../../../resources/images/favicon.ico"/>"/>
 </head>
 <!-- /HEADER -->
 <!-- MAIN SECTION -->
 <body>
-<p align="center">${welcome} ${username}</p>
-<h2>Time now is: ${currentTime}</h2>
-<h1>Ресторан "DREAM DISH"</h1>
 
-<table align="center">
-    <tr>
-        <td><a href="<c:url value="/personal"/>">Personal</a></td>
-        <td><a href="<c:url value="/plan"/>">Plan</a></td>
-        <td><a href="<c:url value="/contacts"/>">Contacts</a></td>
-        <td>
-            <form style="margin: 5px" id="searchForm" action="<c:url value="/searchPage"/>" method="POST">
-                <label for="searchButton">Search:</label><input type="text" id="searchButton" name="searchButton" placeholder="Search">
-                <input id="searchSubmit" type="submit" value="Search">
-            </form>
-        </td>
-        <td><a href="<c:url value="/login"/>">Login</a></td>
-    </tr>
-</table>
+    <p class="pCenter">${welcome} ${username}</p>
 
-<%@ include file="menu.jsp" %>
+    <%@ include file="navigation.jsp" %>
 
-<table id="tableFooter">
-    <tr id="trFooter1">
-        <td id="tdFooter1">Address: Search us ;)</td>
-    </tr>
-    <tr id="trFooter2">
-        <td id="tdFooter2">Phone number: Call us ;)</td>
-    </tr>
-    <tr id="trFooter3">
-        <td id="tdFooter3">@mail: Write us ;)</td>
-    </tr>
-</table>
+    <%@ include file="menu.jsp" %>
 </body>
 <!-- /MAIN SECTION -->
+<!-- FOOTER -->
+<footer>
+
+    <%@ include file="footer.jsp" %>
+
+</footer>
+<!-- /FOOTER -->
 </html>

@@ -24,5 +24,4 @@ public class FileValidator implements Validator {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

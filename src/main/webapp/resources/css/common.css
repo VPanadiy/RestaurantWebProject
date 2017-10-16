@@ -4,6 +4,180 @@ body {
     background-color: #eee;
 }
 
+th {
+    background-color: lime;
+    border: 1px solid black;
+    align-items: center;
+    text-align: center;
+}
+
+td {
+    border: 1px solid black;
+    align-items: center;
+    text-align: center;
+}
+
+.trNone {
+    border: none;
+}
+
+.tdNone {
+    border: none;
+}
+
+img {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #bcefc4;
+    text-align: center;
+}
+
+.h1Center {
+    align-items: center;
+    text-align: center;
+}
+
+.h3Center {
+    align-items: center;
+    text-align: center;
+}
+
+.pCenter {
+    align-items: center;
+    text-align: center;
+}
+
+#h2Time {
+    text-align: right;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.tableMain {
+    border: 1px solid black;
+    width: 100%;
+}
+
+.inputMain[type=text] {
+    padding: 5px;
+    border: 2px solid #ccc;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 250px;
+    font-family: serif;
+    font-size: 14px;
+}
+
+.inputMain[type=text]:focus {
+    border-color: #333;
+}
+
+.inputMain[type=submit] {
+    padding: 5px 15px;
+    background: #ccc;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 75px;
+}
+
+#searchSubmit:hover {
+    opacity: 0.5
+}
+
+#menu {
+    width: 125%;
+    border: none;
+}
+
+#menuTable0, #menuTable1, #menuTable2, #menuTable3, #menuTable4, #menuTable5 {
+    width: 50%;
+    margin-left: 40px;
+    border: none;
+}
+
+#menuTable1 {
+    margin-top: -105px;
+}
+
+#menuTable4 {
+    margin-top: -20px;
+}
+
+.th1 {
+    width: 50%;
+    text-align: center;
+}
+
+.th2 {
+    width: 25%;
+    text-align: center;
+}
+
+.th3 {
+    width: 25%;
+    text-align: center;
+}
+
+.tr1 {
+    align-items: center;
+    text-align: center;
+}
+
+.thMain {
+    text-align: center;
+}
+
+.spacer {
+    height: 10px;
+}
+
+#tdDishName0, #tdDishName1, #tdDishName2, #tdDishName3, #tdDishName4, #tdDishName5 {
+    text-align: left;
+}
+
+.thLeft {
+    text-align: left;
+}
+
+#trMenuTable1, #trMenuTable2, #trMenuTable3 {
+    border: none;
+}
+
+#tdMenuTable0, #tdMenuTable1, #tdMenuTable2, #tdMenuTable3, #tdMenuTable4, #tdMenuTable5 {
+    border: none;
+}
+
+#trFooter1, #trFooter2, #trFooter3 {
+    border: none;
+}
+
+#tdFooter1, #tdFooter2, #tdFooter3 {
+    border: none;
+}
+
+#tableFooter {
+    width: 100%;
+}
+
+#searchForm {
+    margin-top: 20px;
+}
+
+#divImg {
+    width: 100%;
+    text-align: center;
+    border: none;
+}
+
 .form-signin {
     max-width: 330px;
     padding: 15px;
@@ -44,5 +218,12 @@ body {
 }
 
 .has-error {
+    color: red
+}
+
+.nothingFound {
+    align-items: center;
+    text-align: center;
+    font-style: italic;
     color: red
 }

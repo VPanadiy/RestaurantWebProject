@@ -2,7 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@ page errorPage="../error.jsp" %>
 
@@ -17,10 +17,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Admin page">
+    <meta name="description" content="Employee page">
     <meta name="author" content="VPanadiy">
 
-    <title>Admin page</title>
+    <title>Employee</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -43,13 +43,30 @@
 
 <%@ include file="../navigation.jsp" %>
 
-<h1 class="h1Center"><spring:message code="admin" text="Administrator page!"/></h1>
+<h1 class="h1Center">${employee.surname} ${employee.name}</h1>
 
-<a href="<c:url value="/employees"/>"><spring:message code="employees" text="Employees"/></a>
+<table class="tableMain" style="align-items: center">
+    <tr>
+        <th><spring:message code="id" text="Id"/></th>
+        <th><spring:message code="lastName" text="Last Name"/></th>
+        <th><spring:message code="firstName" text="First Name"/></th>
+        <th><spring:message code="dateBirth" text="Date Birth"/></th>
+        <th><spring:message code="phoneNumber" text="Phone number"/></th>
+        <th><spring:message code="appointment" text="Appointment"/></th>
+        <th><spring:message code="salary" text="Salary"/></th>
+    </tr>
 
-<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-    <input type="submit" value="<spring:message code="logout" text="Logout"/>"/>
-</form:form>
+    <tr>
+        <td>${employee.id}</td>
+        <td>${employee.surname}</td>
+        <td>${employee.name}</td>
+        <td>${employee.dateBirth}</td>
+        <td>${employee.phoneNumber}</td>
+        <td>${employee.position}</td>
+        <td>${employee.salary}</td>
+    </tr>
+</table>
+
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->

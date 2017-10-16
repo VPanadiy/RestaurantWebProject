@@ -1,14 +1,18 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<%@ page errorPage="error.jsp" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
+<!-- HEADER -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,13 +38,17 @@
     <link rel="icon" type="image/x-icon"
           href="<s:url value="../../../resources/images/favicon.ico"/>"/>
 </head>
-
+<!-- /HEADER -->
+<!-- MAIN SECTION -->
 <body>
+
 <spring:message code="language" text="Language :"/><a href="?lang=en"><spring:message code="english"
                                                                                       text="English"/></a> | <a
         href="?lang=ru"><spring:message code="russia" text="Russia"/></a> | <a href="?lang=ua"><spring:message
         code="ukraine" text="Ukraine"/></a>
 <spring:message code="locale" text="Current Locale : "/>${pageContext.response.locale}
+
+<h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/> ${currentTime}</h2>
 
 <div class="container">
 
@@ -50,10 +58,10 @@
         <div class="form-group ${error != null ? 'has-error' : ''}">
 
             <input name="user_login" type="text" class="form-control"
-                   placeholder="<spring:message code="username" text="Username" />"
+                   placeholder="<spring:message code="username" text="Username"/>"
                    autofocus/>
             <input name="password_login" type="password" class="form-control"
-                   placeholder="<spring:message code="password" text="Password" />"/>
+                   placeholder="<spring:message code="password" text="Password"/>"/>
 
             <c:if test="${not empty error}">
                 <span class="error">${error}</span>
@@ -78,4 +86,9 @@
 
 </div>
 </body>
+<!-- /MAIN SECTION -->
+<!-- FOOTER -->
+<footer>
+</footer>
+<!-- /FOOTER -->
 </html>

@@ -2,9 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
-<%@ page errorPage="../error.jsp" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -17,10 +15,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Admin page">
+    <meta name="description" content="Footer">
     <meta name="author" content="VPanadiy">
 
-    <title>Admin page</title>
+    <title>Footer</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -40,22 +38,29 @@
 <!-- /HEADER -->
 <!-- MAIN SECTION -->
 <body>
-
-<%@ include file="../navigation.jsp" %>
-
-<h1 class="h1Center"><spring:message code="admin" text="Administrator page!"/></h1>
-
-<a href="<c:url value="/employees"/>"><spring:message code="employees" text="Employees"/></a>
-
-<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-    <input type="submit" value="<spring:message code="logout" text="Logout"/>"/>
-</form:form>
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->
 <footer>
 
-    <%@ include file="../footer.jsp" %>
+    <div class="footer">
+        <table id="tableFooter">
+            <tr id="trFooter1">
+                <td id="tdFooter1"><spring:message code="address" text="Address"/>: <spring:message
+                        code="addressDescription"
+                        text="Search us ;)"/></td>
+            </tr>
+            <tr id="trFooter2">
+                <td id="tdFooter2"><spring:message code="phoneNumber" text="Phone number"/>: <spring:message
+                        code="phoneNumberDescription" text="Phone us ;)"/></td>
+            </tr>
+            <tr id="trFooter3">
+                <td id="tdFooter3"><spring:message code="email" text="Email address"/>: <spring:message
+                        code="emailDescription"
+                        text="Write us ;)"/></td>
+            </tr>
+        </table>
+    </div>
 
 </footer>
 <!-- /FOOTER -->

@@ -6,9 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -19,6 +24,7 @@ import java.util.Map;
  */
 
 @Controller
+@SessionAttributes("dishes")
 public class MainController {
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -31,9 +37,9 @@ public class MainController {
 
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
         if (map != null) {
-            logger.info("redirect!");
+            logger.info("Redirect!");
         } else {
-            logger.info("update!");
+            logger.info("Update!");
         }
 
         model.put("currentTime", new Date().toString());
@@ -43,13 +49,44 @@ public class MainController {
     }
 
     @RequestMapping(value = "/plan", method = RequestMethod.GET)
-    public String restaurantPlan() {
-        return "plan";
+    public ModelAndView restaurantPlan(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.setViewName("plan");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
-    public String contacts() {
-        return "contacts";
+    public ModelAndView contacts(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.setViewName("contacts");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/searchPage", method = RequestMethod.GET)
+    public ModelAndView searchPage(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.setViewName("searchPage");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/searchPage", method = RequestMethod.POST)
+    public ModelAndView searchPageResult(@ModelAttribute("searchButton") String searchString, BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (!bindingResult.hasErrors()) {
+            modelAndView.addObject("currentTime", new Date().toString());
+            modelAndView.addObject("dishes", dishService.getDishesByValue(searchString));
+            modelAndView.setViewName("searchPage");
+
+            RedirectView redirectView = new RedirectView("searchPage");
+            modelAndView.setView(redirectView);
+        } else {
+            modelAndView.setViewName("searchPage");
+        }
+        return modelAndView;
     }
 
     @Autowired

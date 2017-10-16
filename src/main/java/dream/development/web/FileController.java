@@ -5,6 +5,7 @@ import dream.development.validators.FileValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,18 +18,21 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
+import java.util.Locale;
 
 @Controller
 @SessionAttributes("filename")
 public class FileController {
 
+    private MessageSource messageSource;
     private FileValidator fileValidator;
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView uploadFile(@ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) throws IOException {
+    public ModelAndView uploadFile(Locale locale, @ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) throws IOException {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -65,10 +69,11 @@ public class FileController {
                 RedirectView redirectView = new RedirectView("fileUploaded");
                 redirectView.setStatusCode(HttpStatus.FOUND);
                 modelAndView.setView(redirectView);
+                modelAndView.addObject("currentTime", new Date().toString());
                 modelAndView.addObject("filename", fileName);
 
             } catch (IOException e) {
-                throw new IOException("Oops! Something went wrong!");
+                throw new IOException(messageSource.getMessage("errorMain", new String[]{locale.getDisplayName(locale)}, locale));
             }
 
         }
@@ -77,8 +82,16 @@ public class FileController {
     }
 
     @RequestMapping(value = "/fileUploaded", method = RequestMethod.GET)
-    public String fileUploaded() {
-        return "content/fileUploaded";
+    public ModelAndView fileUploaded() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.setViewName("content/fileUploaded");
+        return modelAndView;
+    }
+
+    @Autowired
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
     @Autowired

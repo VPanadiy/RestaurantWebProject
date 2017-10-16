@@ -1,90 +1,59 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Администратор
-  Date: 14.08.2017
-  Time: 22:24
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<%@ page errorPage="error.jsp" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Menu page">
+    <meta name="author" content="VPanadiy">
+
     <title>Menu</title>
-    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+
+    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../../../resources/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../../resources/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../../../resources/js/html5shiv.min.js"></script>
+    <script type="text/javascript" src="../../../resources/js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="icon" type="image/x-icon"
+          href="<s:url value="../../../resources/images/favicon.ico"/>"/>
 </head>
 <body>
 
-<%--<table id="menu">--%>
-<%--<tr>--%>
-<%--<td id="tdMenu1">--%>
-<%--<table id="menuTable1">--%>
-<%--<c:forEach items="${menu}" var="menu">--%>
-<%--<c:if test="${menu.id%2 != 0}">--%>
-<%--<tr>--%>
-<%--<th colspan="3">${menu.name}</th>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--<th>Name</th>--%>
-<%--<th>Weight</th>--%>
-<%--<th>Cost</th>--%>
-<%--</tr>--%>
-<%--<c:forEach items="${dishes}" var="dish">--%>
-<%--<tr>--%>
-<%--<c:if test="${menu.id == dish.menu.id}">--%>
-<%--<td><a href="/dish/${dish.name}">${dish.name}</a></td>--%>
-<%--<td>${dish.weight}</td>--%>
-<%--<td>${dish.cost}</td>--%>
-<%--</c:if>--%>
-<%--</tr>--%>
-<%--</c:forEach>--%>
-<%--</c:if>--%>
-<%--</c:forEach>--%>
-<%--</table>--%>
-<%--</td>--%>
-<%--<td id="tdMenu2">--%>
-<%--<table id="menuTable2">--%>
-<%--<c:forEach items="${menu}" var="menu">--%>
-<%--<c:if test="${menu.id%2 == 0}">--%>
-<%--<tr>--%>
-<%--<th colspan="3">${menu.name}</th>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--<th>Name</th>--%>
-<%--<th>Weight</th>--%>
-<%--<th>Cost</th>--%>
-<%--</tr>--%>
-<%--<c:forEach items="${dishes}" var="dish">--%>
-<%--<tr>--%>
-<%--<c:if test="${menu.id == dish.menu.id}">--%>
-<%--<td><a href="/dish/${dish.name}">${dish.name}</a></td>--%>
-<%--<td>${dish.weight}</td>--%>
-<%--<td>${dish.cost}</td>--%>
-<%--</c:if>--%>
-<%--</tr>--%>
-<%--</c:forEach>--%>
-<%--</c:if>--%>
-<%--</c:forEach>--%>
-<%--</table>--%>
-<%--</td>--%>
-<%--</tr>--%>
-<%--</table>--%>
+<h1 class="h1Center"><spring:message code="menu" text="Menu"/></h1>
 
-<h1>Menu</h1>
-
-<table id="menu">
+<table id="menu" class="tableMain">
 
     <tr id="trMenuTable1">
         <td id="tdMenuTable0">
             <table id="menuTable0">
                 <tr>
                     <c:set var="menu0" value="${menu[0]}"/>
-                    <th colspan="3"><c:out value="${menu0.name}"/></th>
+                    <th class="thMain" colspan="3"><c:out value="${menu0.name}"/></th>
                 </tr>
 
                 <tr>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Cost</th>
+                    <th class="th1"><spring:message code="name" text="Name"/></th>
+                    <th class="th2"><spring:message code="weightGramms" text="Weight, gramms"/></th>
+                    <th class="th3"><spring:message code="cost" text="Cost"/></th>
                 </tr>
 
                 <c:forEach items="${dishes}" var="dish">
@@ -102,13 +71,13 @@
             <table id="menuTable1">
                 <tr>
                     <c:set var="menu1" value="${menu[1]}"/>
-                    <th colspan="3"><c:out value="${menu1.name}"/></th>
+                    <th class="thMain" colspan="3"><c:out value="${menu1.name}"/></th>
                 </tr>
 
                 <tr>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Cost</th>
+                    <th class="th1"><spring:message code="name" text="Name"/></th>
+                    <th class="th2"><spring:message code="weightGramms" text="Weight, gramms"/></th>
+                    <th class="th3"><spring:message code="cost" text="Cost"/></th>
                 </tr>
 
                 <c:forEach items="${dishes}" var="dish">
@@ -124,18 +93,20 @@
         </td>
     </tr>
 
+    <tr class="spacer"></tr>
+
     <tr id="trMenuTable2">
         <td id="tdMenuTable2">
             <table id="menuTable2">
                 <tr>
                     <c:set var="menu2" value="${menu[2]}"/>
-                    <th colspan="3"><c:out value="${menu2.name}"/></th>
+                    <th class="thMain" colspan="3"><c:out value="${menu2.name}"/></th>
                 </tr>
 
                 <tr>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Cost</th>
+                    <th class="th1"><spring:message code="name" text="Name"/></th>
+                    <th class="th2"><spring:message code="weightGramms" text="Weight, gramms"/></th>
+                    <th class="th3"><spring:message code="cost" text="Cost"/></th>
                 </tr>
 
                 <c:forEach items="${dishes}" var="dish">
@@ -153,13 +124,13 @@
             <table id="menuTable3">
                 <tr>
                     <c:set var="menu3" value="${menu[3]}"/>
-                    <th colspan="3"><c:out value="${menu3.name}"/></th>
+                    <th class="thMain" colspan="3"><c:out value="${menu3.name}"/></th>
                 </tr>
 
                 <tr>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Cost</th>
+                    <th class="th1"><spring:message code="name" text="Name"/></th>
+                    <th class="th2"><spring:message code="weightGramms" text="Weight, gramms"/></th>
+                    <th class="th3"><spring:message code="cost" text="Cost"/></th>
                 </tr>
 
                 <c:forEach items="${dishes}" var="dish">
@@ -175,18 +146,20 @@
         </td>
     </tr>
 
+    <tr class="spacer"></tr>
+
     <tr id="trMenuTable3">
         <td id="tdMenuTable4">
             <table id="menuTable4">
                 <tr>
                     <c:set var="menu4" value="${menu[4]}"/>
-                    <th colspan="3"><c:out value="${menu4.name}"/></th>
+                    <th class="thMain" colspan="3"><c:out value="${menu4.name}"/></th>
                 </tr>
 
                 <tr>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Cost</th>
+                    <th class="th1"><spring:message code="name" text="Name"/></th>
+                    <th class="th2"><spring:message code="weightMilliliter" text="Weight, ml."/></th>
+                    <th class="th3"><spring:message code="cost" text="Cost"/></th>
                 </tr>
 
                 <c:forEach items="${dishes}" var="dish">
@@ -204,13 +177,13 @@
             <table id="menuTable5">
                 <tr>
                     <c:set var="menu5" value="${menu[5]}"/>
-                    <th colspan="3"><c:out value="${menu5.name}"/></th>
+                    <th class="thMain" colspan="3"><c:out value="${menu5.name}"/></th>
                 </tr>
 
                 <tr>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Cost</th>
+                    <th class="th1"><spring:message code="name" text="Name"/></th>
+                    <th class="th2"><spring:message code="weightMilliliter" text="Weight, ml."/></th>
+                    <th class="th3"><spring:message code="cost" text="Cost"/></th>
                 </tr>
 
                 <c:forEach items="${dishes}" var="dish">
@@ -226,6 +199,7 @@
         </td>
     </tr>
 
+    <tr class="spacer"></tr>
 </table>
 
 </body>

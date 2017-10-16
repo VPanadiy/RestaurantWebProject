@@ -2,7 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@ page errorPage="../error.jsp" %>
 
@@ -17,13 +17,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Admin page">
+    <meta name="description" content="Employees page">
     <meta name="author" content="VPanadiy">
 
-    <title>Admin page</title>
+    <title>Employees</title>
 
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+    <link href="${contextPath}../resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}../resources/css/common.css" rel="stylesheet">
 
     <script type="text/javascript" src="../../../../resources/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../../../../resources/js/bootstrap.min.js"></script>
@@ -43,13 +43,27 @@
 
 <%@ include file="../navigation.jsp" %>
 
-<h1 class="h1Center"><spring:message code="admin" text="Administrator page!"/></h1>
+<h1 class="h1Center"><spring:message code="employees" text="Employees"/></h1>
 
-<a href="<c:url value="/employees"/>"><spring:message code="employees" text="Employees"/></a>
+<table class="tableMain" style="align-items: center">
+    <tr>
+        <th><spring:message code="id" text="Id"/></th>
+        <th><spring:message code="lastName" text="Last Name"/></th>
+        <th><spring:message code="firstName" text="First Name"/></th>
+        <th><spring:message code="appointment" text="Appointment"/></th>
+    </tr>
 
-<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-    <input type="submit" value="<spring:message code="logout" text="Logout"/>"/>
-</form:form>
+    <c:forEach items="${employees}" var="employee">
+        <tr>
+            <td>${employee.id}</td>
+            <td>${employee.surname}</td>
+            <td><a href="/employee/${employee.name}">${employee.name}</a></td>
+            <td>${employee.position}</td>
+        </tr>
+    </c:forEach>
+
+</table>
+
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->

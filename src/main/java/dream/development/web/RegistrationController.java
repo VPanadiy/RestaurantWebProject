@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.Locale;
 
 @Controller
@@ -37,6 +38,7 @@ public class RegistrationController {
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
         Users user = new Users();
+        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("users", user);
         modelAndView.setViewName("registration");
         return modelAndView;
@@ -46,6 +48,7 @@ public class RegistrationController {
     public ModelAndView createNewUser(Locale locale, @Valid @ModelAttribute("users") Users user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         Users userExists = userService.findUserByEmail(user.getEmail());
+        modelAndView.addObject("currentTime", new Date().toString());
 
         if (userExists != null) {
             bindingResult.rejectValue("email", "error.user",

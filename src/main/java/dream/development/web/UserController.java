@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -28,46 +29,52 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
+    public ModelAndView login(Locale locale, @RequestParam(value = "error", required = false) String error) {
 
-        ModelAndView model = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
+
         if (error != null) {
-            model.addObject("error", "Invalid username or password!");
+            modelAndView.addObject("error", messageSource.getMessage("invalidUserPass", new String[]{locale.getDisplayName(locale)}, locale));
         }
 
-        model.setViewName("login");
+        modelAndView.setViewName("login");
 
-        return model;
+        return modelAndView;
     }
 
     @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
     public ModelAndView accessDenied(Locale locale, Principal user) {
 
-        ModelAndView model = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
 
         if (user != null) {
-            model.addObject("errorMsg", user.getName() + messageSource.getMessage("accessDeniedForUser", new String[]{locale.getDisplayName(locale)}, locale));
+            modelAndView.addObject("errorMsg", user.getName() + messageSource.getMessage("accessDeniedForUser", new String[]{locale.getDisplayName(locale)}, locale));
         } else {
-            model.addObject("errorMsg", messageSource.getMessage("accessDeniedAnonymous", new String[]{locale.getDisplayName(locale)}, locale));
+            modelAndView.addObject("errorMsg", messageSource.getMessage("accessDeniedAnonymous", new String[]{locale.getDisplayName(locale)}, locale));
         }
 
-        model.setViewName("/content/accessDenied");
-        return model;
+        modelAndView.setViewName("/content/accessDenied");
+        return modelAndView;
 
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ModelAndView userPage(Principal user) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("user", userService.findUserByName(user.getName()));
         modelAndView.setViewName("content/user");
         return modelAndView;
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage() {
-
-        return "content/admin";
+    public ModelAndView adminPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.setViewName("content/admin");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/downloadPDF", method = RequestMethod.GET)
