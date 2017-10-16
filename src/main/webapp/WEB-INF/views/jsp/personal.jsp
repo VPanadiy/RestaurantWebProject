@@ -49,14 +49,16 @@
 
     <c:forEach items="${personal}" var="waiters">
         <c:if test="${waiters.position == 'WAITER'}">
-            <tr class="trNone">
-                <td class="tdNone" colspan="3" rowspan="2"><img width="255" height="255" src="<c:url value="/resources/images/waiters/${waiters.name}.jpg"/>"/>
+            <tr>
+                <td colspan="3" rowspan="2"><img width="255" height="255" src="<c:url value="/resources/images/waiters/${waiters.name}.jpg"/>"/>
                 </td>
-                <td class="tdNone"><spring:message code="firstName" text="Name"/>: ${waiters.name}</td>
+                <td><spring:message code="firstName" text="Name"/>: </td>
+                <td>${waiters.name}</td>
             </tr>
 
-            <tr class="trNone">
-                <td class="tdNone"><spring:message code="description" text="Description"/>: ...</td>
+            <tr>
+                <td><spring:message code="description" text="Description"/>: </td>
+                <td>...</td>
             </tr>
 
             <tr class="spacer"></tr>

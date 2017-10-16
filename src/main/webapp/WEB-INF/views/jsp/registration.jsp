@@ -62,6 +62,12 @@
 
 <h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/> ${currentTime}</h2>
 
+<p class="pLeft" style="display: inline"><a href="<c:url value="/login"/>"><spring:message code="goBack"
+                                                                                           text="← Go back to"/>
+    <spring:message code="login" text="Login"/></a>
+    <span style="float:right;"><a href="<c:url value="/"/>"><spring:message code="home" text="Home"/></a></span>
+</p>
+
 <div class="container">
 
     <form:form method="POST" modelAttribute="users" action="registration" class="form-signin">
@@ -72,7 +78,8 @@
             <div class="form-group">
                 <form:label path="username"><spring:message code="username" text="Username"/>:</form:label>
                 <spring:message code="username" text="Username" var="username"/>
-                <form:input type="text" path="username" class="form-control" placeholder="${username}" autofocus="true"/>
+                <form:input type="text" path="username" class="form-control" placeholder="${username}"
+                            autofocus="true"/>
                 <form:errors path="username" cssClass="has-error"/>
             </div>
 
@@ -120,7 +127,8 @@
                 <form:label path="phoneNumber"><spring:message code="phoneNumber" text="Phone number"/>:</form:label>
                 <spring:message code="phoneNumber" text="Phone number" var="phoneNumber"/>
                 <spring:message code="eg" text="eg" var="eg"/>
-                <form:input path="phoneNumber" class="form-control" placeholder="${phoneNumber} ${eg}.+38(044)123-45-67"/>
+                <form:input path="phoneNumber" class="form-control"
+                            placeholder="${phoneNumber} ${eg}.+38(044)123-45-67"/>
             </div>
 
             <div class="form-group">
@@ -138,7 +146,8 @@
         </fieldset>
 
         <footer>
-            <input type="submit" class="btn btn-lg btn-primary btn-block" value="<spring:message code="submit" text="Submit"/>">
+            <input type="submit" class="btn btn-lg btn-primary btn-block"
+                   value="<spring:message code="submit" text="Submit"/>">
         </footer>
 
     </form:form>

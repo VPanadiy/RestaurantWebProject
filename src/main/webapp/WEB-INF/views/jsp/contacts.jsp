@@ -45,19 +45,19 @@
 
 <h1 class="h1Center"><spring:message code="contacts" text="Contacts"/></h1>
 
-<table>
-    <tr class="trNone">
-        <td class="tdNone" rowspan="5"><img width="600" height="600" src="<c:url value="/resources/images/map.png"/>"/></td>
-        <td class="tdNone"><spring:message code="address" text="Address"/>: </td>
-        <td class="tdNone"><spring:message code="addressDescription" text="Search us ;)"/></td>
+<table class="tableMain">
+    <tr>
+        <td rowspan="5" width="50%"><img width="500" height="500" src="<c:url value="/resources/images/map.png"/>"/></td>
+        <td width="15%"><spring:message code="address" text="Address"/>: </td>
+        <td><spring:message code="addressDescription" text="Search us ;)"/></td>
     </tr>
-    <tr class="trNone">
-        <td class="tdNone"><spring:message code="phoneNumber" text="Phone number"/>: </td>
-        <td class="tdNone"><spring:message code="phoneNumberDescription" text="Phone us ;)"/></td>
+    <tr>
+        <td width="15%"><spring:message code="phoneNumber" text="Phone number"/>: </td>
+        <td ><spring:message code="phoneNumberDescription" text="Phone us ;)"/></td>
     </tr>
-    <tr class="trNone">
-        <td class="tdNone"><spring:message code="email" text="Email address"/>: </td>
-        <td class="tdNone"><spring:message code="emailDescription" text="Write us ;)"/></td>
+    <tr>
+        <td width="15%"><spring:message code="email" text="Email address"/>: </td>
+        <td><spring:message code="emailDescription" text="Write us ;)"/></td>
     </tr>
 
 </table>

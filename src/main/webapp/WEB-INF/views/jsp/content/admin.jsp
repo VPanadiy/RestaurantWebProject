@@ -43,7 +43,7 @@
 
 <%@ include file="../navigation.jsp" %>
 
-<h1 class="h1Center"><spring:message code="admin" text="Administrator page!"/></h1>
+<h1 class="h1Center"><spring:message code="admin" text="Administrator page"/>!</h1>
 
 <a href="<c:url value="/employees"/>"><spring:message code="employees" text="Employees"/></a>
 

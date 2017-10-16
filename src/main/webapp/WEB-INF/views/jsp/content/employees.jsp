@@ -64,6 +64,10 @@
 
 </table>
 
+
+<p class="pRight"><a href="<c:url value="/admin"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message code="admin" text="Administrator page"/></a></p>
+
+
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->

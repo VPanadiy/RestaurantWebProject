@@ -67,6 +67,8 @@
     </tr>
 </table>
 
+<p class="pRight"><a href="<c:url value="/employees"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message code="employees" text="Employees"/></a></p>
+
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->

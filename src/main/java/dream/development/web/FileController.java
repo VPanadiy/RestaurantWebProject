@@ -35,6 +35,7 @@ public class FileController {
     public ModelAndView uploadFile(Locale locale, @ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) throws IOException {
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
 
         String fileName;
 
@@ -69,7 +70,6 @@ public class FileController {
                 RedirectView redirectView = new RedirectView("fileUploaded");
                 redirectView.setStatusCode(HttpStatus.FOUND);
                 modelAndView.setView(redirectView);
-                modelAndView.addObject("currentTime", new Date().toString());
                 modelAndView.addObject("filename", fileName);
 
             } catch (IOException e) {

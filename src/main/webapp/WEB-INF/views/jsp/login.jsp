@@ -50,6 +50,8 @@
 
 <h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/> ${currentTime}</h2>
 
+<p class="pLeft"><a href="<c:url value="/"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message code="home" text="Home"/></a></p>
+
 <div class="container">
 
     <form method="POST" action="j_spring_security_check" class="form-signin">

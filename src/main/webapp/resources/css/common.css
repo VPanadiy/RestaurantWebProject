@@ -1,8 +1,20 @@
+html{
+    height:100%;
+}
+
 body {
+    min-height:100%;
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #eee;
+    background: url(../images/background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position:relative;
 }
+
+body::after{ content:''; display:block; height:100px; }
 
 th {
     background-color: lime;
@@ -53,6 +65,14 @@ img {
 .pCenter {
     align-items: center;
     text-align: center;
+}
+
+.pRight {
+    text-align: right;
+}
+
+.pLeft {
+    text-align: left;
 }
 
 #h2Time {
