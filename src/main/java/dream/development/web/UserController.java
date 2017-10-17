@@ -70,18 +70,29 @@ public class UserController {
         modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("user", loggedInUser);
 
-        byte[] encodeBase64 = Base64.encode(loggedInUser.getImageData());
-        String base64Encoded = new String(encodeBase64, "UTF-8");
-        modelAndView.addObject("userImage", base64Encoded );
+        if (loggedInUser.getImageData() != null) {
+            byte[] encodeBase64 = Base64.encode(loggedInUser.getImageData());
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            modelAndView.addObject("userImage", base64Encoded);
+        }
 
         modelAndView.setViewName("content/user");
         return modelAndView;
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminPage() {
+    public ModelAndView adminPage(Principal user) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
+        Users loggedInUser = userService.findUserByName(user.getName());
         modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.addObject("user", loggedInUser);
+
+        if (loggedInUser.getImageData() != null) {
+            byte[] encodeBase64 = Base64.encode(loggedInUser.getImageData());
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            modelAndView.addObject("userImage", base64Encoded);
+        }
+
         modelAndView.setViewName("content/admin");
         return modelAndView;
     }

@@ -17,6 +17,7 @@ CREATE TABLE users (
   second_email varchar(60),
   country varchar(45),
   enabled smallint NOT NULL DEFAULT '1',
+  image_data bytea,
   PRIMARY KEY (username)
 );
 

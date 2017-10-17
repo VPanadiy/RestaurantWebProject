@@ -4,6 +4,7 @@ import dream.development.model.Users;
 import dream.development.model.objects.UploadedFile;
 import dream.development.service.UserService;
 import dream.development.validators.FileValidator;
+import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,20 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Locale;
 
 @Controller
-@SessionAttributes("filename")
 public class FileController {
 
     private MessageSource messageSource;
@@ -36,48 +32,32 @@ public class FileController {
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView uploadFile(Locale locale, Principal user, @ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult result) throws IOException {
+    public ModelAndView uploadFile(Locale locale, Principal user, @ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult bindingResult) throws IOException {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("currentTime", new Date().toString());
+        Users loggedInUser = userService.findUserByName(user.getName());
 
-        String fileName;
+        if (loggedInUser.getImageData() != null) {
+            byte[] encodeBase64 = Base64.encode(loggedInUser.getImageData());
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            modelAndView.addObject("userImage", base64Encoded);
+        }
 
-        MultipartFile file = uploadedFile.getFile();
-        fileValidator.validate(uploadedFile, result);
+        fileValidator.validate(uploadedFile, bindingResult);
 
-        if (result.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             modelAndView.setViewName("content/user");
         } else {
 
             try {
-                byte[] bytes = file.getBytes();
-
-                fileName = file.getOriginalFilename();
-
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                File loadFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(loadFile));
-                stream.write(bytes);
-                stream.flush();
-                stream.close();
-
-                Users loggedInUser = userService.findUserByName(user.getName());
                 loggedInUser.setImageData(uploadedFile.getFile().getBytes());
                 userService.saveProfileImage(loggedInUser);
-                logger.info("uploaded: " + loadFile.getAbsolutePath());
+                logger.info("Profile image uploaded successful!");
 
-                RedirectView redirectView = new RedirectView("fileUploaded");
+                RedirectView redirectView = new RedirectView("/user");
                 redirectView.setStatusCode(HttpStatus.FOUND);
                 modelAndView.setView(redirectView);
-                modelAndView.addObject("filename", fileName);
 
             } catch (IOException e) {
                 throw new IOException(messageSource.getMessage("errorMain", new String[]{locale.getDisplayName(locale)}, locale));
