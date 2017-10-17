@@ -46,6 +46,12 @@ public class HUsersDao implements UsersDao {
         sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void saveUserDetails(Users user) {
+        sessionFactory.getCurrentSession().saveOrUpdate(user);
+    }
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

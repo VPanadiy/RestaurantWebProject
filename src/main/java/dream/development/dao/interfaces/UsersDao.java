@@ -11,4 +11,6 @@ public interface UsersDao {
     Users findByName(String username);
 
     void insertProfileImage(Users user);
+
+    void saveUserDetails(Users user);
 }

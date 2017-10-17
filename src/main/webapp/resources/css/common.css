@@ -29,17 +29,24 @@ td {
     text-align: center;
 }
 
+img {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.labelInline {
+    display: inline;
+    float: left;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
 .trNone {
     border: none;
 }
 
 .tdNone {
     border: none;
-}
-
-img {
-    display: inline-block;
-    margin: 0 auto;
 }
 
 .footer {

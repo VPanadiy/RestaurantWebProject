@@ -38,6 +38,11 @@ public class UserService {
         usersDao.insertProfileImage(user);
     }
 
+    @Transactional
+    public void updateUserDetails(Users user) {
+        usersDao.saveUserDetails(user);
+    }
+
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Date;
 import java.util.Locale;
 
@@ -68,6 +69,26 @@ public class RegistrationController {
             redirectAttributes.addFlashAttribute("username", user.getUsername() + "!");
         } else {
             modelAndView.setViewName("registration");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/updateUserDetails", method = RequestMethod.POST)
+    public ModelAndView updateUserDetails(Locale locale, Principal loggedInUser, @Valid @ModelAttribute("user") Users user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        Users userExists = userService.findUserByName(loggedInUser.getName());
+        modelAndView.addObject("currentTime", new Date().toString());
+
+        if (!bindingResult.hasErrors()) {
+            userExists.setFirstName(user.getFirstName());
+            userExists.setLastName(user.getLastName());
+            userService.updateUserDetails(userExists);
+
+            RedirectView redirectView = new RedirectView("/user");
+            redirectView.setStatusCode(HttpStatus.FOUND);
+            modelAndView.setView(redirectView);
+        } else {
+            modelAndView.setViewName("content/user");
         }
         return modelAndView;
     }

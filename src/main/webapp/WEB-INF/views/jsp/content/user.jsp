@@ -60,6 +60,88 @@
 
 <h3><a href="downloadPDF"><spring:message code="downloadPDF" text="Download PDF Document"/></a></h3>
 
+<div class="container" style="width: 450px; margin-left: 0px">
+
+<form:form action="/updateUserDetails" modelAttribute="user" method="POST">
+
+    <fieldset>
+
+        <div class="form-group">
+            <form:label path="username" cssClass="labelInline"><spring:message code="username" text="Username"/>:</form:label>
+            <spring:message code="username" text="Username" var="username"/>
+            <form:input type="text" path="username" class="form-control" cssStyle="float: right; width: 300px" placeholder="${username}"
+                        autofocus="true"/>
+            <form:errors path="username" cssClass="has-error"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="lastName" cssClass="labelInline"><spring:message code="lastName" text="Last Name"/>:</form:label>
+            <spring:message code="lastName" text="Last Name" var="lastName"/>
+            <form:input path="lastName" class="form-control" cssStyle="float: right; width: 300px" placeholder="${lastName}"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="firstName" cssClass="labelInline"><spring:message code="firstName" text="First Name"/>:</form:label>
+            <spring:message code="firstName" text="First Name" var="firstName"/>
+            <form:input path="firstName" class="form-control" cssStyle="float: right; width: 300px" placeholder="${firstName}"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="email" cssClass="labelInline"><spring:message code="email" text="Email"/>:</form:label>
+            <spring:message code="email" text="Email" var="email"/>
+            <form:input path="email" class="form-control" cssStyle="float: right; width: 300px" placeholder="${email}"/>
+            <form:errors path="email" cssClass="has-error"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="password" cssClass="labelInline"><spring:message code="password" text="Password"/>:</form:label>
+            <spring:message code="password" text="Password" var="password"/>
+            <form:password path="password" class="form-control" cssStyle="float: right; width: 300px" placeholder="${password}"/>
+            <form:errors path="password" cssClass="has-error"/>
+            <span style="float: right" id="strengthValue"></span>
+        </div>
+
+        <div class="form-group">
+            <form:label path="dateBirth" cssClass="labelInline"><spring:message code="dateBirth" text="Date Birth"/>:</form:label>
+            <spring:message code="dateBirth" text="Date Birth" var="dateBirth"/>
+            <spring:message code="dateFormat" text="dd/mm/yyyy" var="dateFormat"/>
+            <form:input path="dateBirth" class="form-control" cssStyle="float: right; width: 300px" placeholder="${dateBirth} (${dateFormat})"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="gender" cssClass="labelInline"><spring:message code="gender" text="Gender"/>:</form:label>
+            <spring:message code="gender" text="Gender" var="gender"/>
+            <form:input path="gender" class="form-control" cssStyle="float: right; width: 300px" placeholder="${gender}"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="phoneNumber" cssClass="labelInline"><spring:message code="phoneNumber" text="Phone number"/>:</form:label>
+            <spring:message code="phoneNumber" text="Phone number" var="phoneNumber"/>
+            <spring:message code="eg" text="eg" var="eg"/>
+            <form:input path="phoneNumber" class="form-control" cssStyle="float: right; width: 300px"
+                        placeholder="${phoneNumber} ${eg}.+38(044)123-45-67"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="secondEmail" cssClass="labelInline"><spring:message code="emailReserve" text="Reserved Email"/>:</form:label>
+            <spring:message code="emailReserve" text="Reserved Email" var="emailReserve"/>
+            <form:input path="secondEmail" class="form-control" cssStyle="float: right; width: 300px" placeholder="${emailReserve}"/>
+        </div>
+
+        <div class="form-group">
+            <form:label path="country" cssClass="labelInline"><spring:message code="country" text="Country"/>:</form:label>
+            <spring:message code="country" text="Country" var="country"/>
+            <form:input path="country" class="form-control" cssStyle="float: right; width: 300px" placeholder="${country}"/>
+        </div>
+
+    </fieldset>
+
+    <footer>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="<spring:message code="submit" text="Submit"/>">
+    </footer>
+</form:form>
+
+</div>
 
 <form:form method="post" enctype="multipart/form-data" modelAttribute="uploadedFile"
            action="uploadFile?${_csrf.parameterName}=${_csrf.token}">
