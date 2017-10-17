@@ -17,6 +17,10 @@ public class FileValidator implements Validator {
 			errors.rejectValue("file", "uploadForm.selectFile", "Please select a file!");
 		}
 
+		if (file.getFile().getSize() > 100000) {
+			errors.rejectValue("file", "uploadForm.selectFile", "Max size of selected file must be not more then 100KB!");
+		}
+
 	}
 
 	@Override

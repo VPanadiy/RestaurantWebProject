@@ -46,7 +46,8 @@
 <h1 class="h1Center"><spring:message code="admin" text="Administrator page"/>!</h1>
 <h3 class="h3Center"><spring:message code="hello" text="Hello"/> ${user.username}!</h3>
 
-<p><spring:message code="email" text="Email"/>: ${user.password}!</p>
+<p><spring:message code="password" text="Password"/>: ${user.password}!</p>
+<p><spring:message code="email" text="Email"/>: ${user.email}!</p>
 <p><spring:message code="profileImage" text="Profile image"/>: <img width="100px" height="100px" src="data:image/jpeg;base64,${userImage}"/></p>
 
 <a href="<c:url value="/employees"/>"><spring:message code="employees" text="Employees"/></a>

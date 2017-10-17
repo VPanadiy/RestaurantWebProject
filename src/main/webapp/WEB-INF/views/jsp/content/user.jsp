@@ -55,7 +55,7 @@
 <h3 class="h3Center"><spring:message code="hello" text="Hello"/> ${user.username}!</h3>
 
 <p><spring:message code="password" text="Password"/>: ${user.password}!</p>
-<p><spring:message code="password" text="Password"/>: ${user.email}!</p>
+<p><spring:message code="email" text="Email"/>: ${user.email}!</p>
 <p><spring:message code="profileImage" text="Profile image"/>: <img width="100px" height="100px" src="data:image/jpeg;base64,${userImage}"/></p>
 
 <h3><a href="downloadPDF"><spring:message code="downloadPDF" text="Download PDF Document"/></a></h3>

@@ -54,7 +54,7 @@ Now .keystore created on C:\Users\UserName.
 	
 Uncomment it and modify it to look like the following:	
 	
-    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+    <Connector port="8443" maxHttpHeaderSize="524288" protocol="org.apache.coyote.http11.Http11NioProtocol"
                maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
                clientAuth="false" sslProtocol="TLS" 
                keystoreFile="/Users/UserName/.keystore"
