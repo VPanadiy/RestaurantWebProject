@@ -7,10 +7,17 @@ import dream.development.model.Users;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public class UserService {
 
     private UsersDao usersDao;
     private GroupMembersDao groupMembersDao;
+
+    @Transactional
+    public List<Users> getUsers() {
+        return usersDao.getAllUsers();
+    }
 
     @Transactional
     public void saveUser(Users user) {
@@ -21,6 +28,11 @@ public class UserService {
         groupMembers.setUsername(user.getUsername());
         usersDao.insert(user);
         groupMembersDao.insert(groupMembers);
+    }
+
+    @Transactional
+    public List<GroupMembers> getUsersRole() {
+        return groupMembersDao.getRoles();
     }
 
     @Transactional

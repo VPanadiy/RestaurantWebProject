@@ -17,14 +17,16 @@
             <port-mapping http="8080" https="8443" />
         </port-mappings>
 
-        <intercept-url pattern="/user" access="isAuthenticated()"/>
+        <intercept-url pattern="/account" access="isAuthenticated()"/>
         <intercept-url pattern="/fileUploaded" access="isAuthenticated()"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/employee/*" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/employees" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/user/*" access="hasRole('ROLE_ADMIN')"/>
 
         <form-login login-page='/login'
-                    default-target-url="/user"
+                    default-target-url="/account"
                     login-processing-url="/j_spring_security_check"
                     authentication-failure-url="/login?error=true"
                     username-parameter="user_login"

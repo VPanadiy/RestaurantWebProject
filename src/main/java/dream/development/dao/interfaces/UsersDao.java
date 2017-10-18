@@ -2,7 +2,11 @@ package dream.development.dao.interfaces;
 
 import dream.development.model.Users;
 
+import java.util.List;
+
 public interface UsersDao {
+
+    List<Users> getAllUsers();
 
     void insert(Users user);
 

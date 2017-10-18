@@ -47,7 +47,7 @@ public class FileController {
         fileValidator.validate(uploadedFile, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("content/user");
+            modelAndView.setViewName("content/account");
         } else {
 
             try {
@@ -55,7 +55,7 @@ public class FileController {
                 userService.saveProfileImage(loggedInUser);
                 logger.info("Profile image uploaded successful!");
 
-                RedirectView redirectView = new RedirectView("/user");
+                RedirectView redirectView = new RedirectView("/account");
                 redirectView.setStatusCode(HttpStatus.FOUND);
                 modelAndView.setView(redirectView);
 

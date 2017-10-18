@@ -17,10 +17,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Admin page">
+    <meta name="description" content="Users page">
     <meta name="author" content="VPanadiy">
 
-    <title>Admin page</title>
+    <title>Users page</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -43,31 +43,35 @@
 
 <%@ include file="../navigation.jsp" %>
 
-<h1 class="h1Center"><spring:message code="admin" text="Administrator page"/>!</h1>
-<h3 class="h3Center"><spring:message code="hello" text="Hello"/> ${user.username}!</h3>
+<h1 class="h1Center"><spring:message code="usersPage" text="Users page"/>!</h1>
 
-<p><spring:message code="password" text="Password"/>: ${user.password}!</p>
-<p><spring:message code="email" text="Email"/>: ${user.email}!</p>
+<table class="tableMain" style="align-items: center">
+    <tr>
+        <th><spring:message code="id" text="Id"/></th>
+        <th><spring:message code="username" text="Username"/></th>
+        <th><spring:message code="email" text="Email"/></th>
+        <th><spring:message code="status" text="Status"/></th>
+        <th><spring:message code="userRole" text="Role"/></th>
+    </tr>
 
-<p><spring:message code="profileImage" text="Profile image"/>:
-    <c:choose>
-        <c:when test="${userImage.length() != null}">
-            <img style="border: solid black 1px" width="100px" height="100px"
-                 src="data:image/jpeg;base64,${userImage}"/>
-        </c:when>
-        <c:otherwise>
-            <img style="border: solid black 1px" width="100px" height="100px"
-                 src="../../../../resources/images/defaultAvatar.png">
-        </c:otherwise>
-    </c:choose>
-</p>
+    <c:forEach items="${users}" var="user">
+        <tr>
+            <td>${user.id}</td>
+            <td><a href="/user/${user.username}">${user.username}</a></td>
+            <td>${user.email}</td>
+            <td>${user.enabled}</td>
+            <c:forEach items="${usersRole}" var="userRole">
+                <c:choose>
+                    <c:when test="${userRole.username == user.username}">
+                        <td>${userRole.groupId}</td>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+        </tr>
+    </c:forEach>
 
-<p><a href="<c:url value="/employees"/>"><spring:message code="employees" text="Employees"/></a></p>
-<p><a href="<c:url value="/users"/>"><spring:message code="usersPage" text="Users page"/></a></p>
+</table>
 
-<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-    <input type="submit" value="<spring:message code="logout" text="Logout"/>"/>
-</form:form>
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->

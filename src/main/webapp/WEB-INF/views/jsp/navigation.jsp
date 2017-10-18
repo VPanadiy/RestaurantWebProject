@@ -73,7 +73,7 @@
                             <a href="<c:url value="/admin"/>"><spring:message code="admin" text="Administrator page"/></a><br>
                         </c:when>
                         <c:otherwise>
-                            <a href="<c:url value="/user"/>"><spring:message code="userPage" text="User page"/></a><br>
+                            <a href="<c:url value="/account"/>"><spring:message code="userPage" text="User page"/></a><br>
                         </c:otherwise>
                     </c:choose>
                     <form:form action="${pageContext.request.contextPath}/logout" method="POST">

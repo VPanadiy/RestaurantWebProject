@@ -68,82 +68,82 @@
     <span style="float:right;"><a href="<c:url value="/"/>"><spring:message code="home" text="Home"/></a></span>
 </p>
 
-<div class="container" style="width: 450px;">
+<div class="container" style="width: 575px;">
 
     <form:form method="POST" modelAttribute="users" action="registration" class="form-signin" cssStyle="padding: 0; max-width: none">
         <h2 class="form-signin-heading"><spring:message code="accountCreating" text="Create your account"/></h2>
 
         <fieldset>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="username" cssClass="labelRegInline"><spring:message code="username" text="Username"/>:</form:label>
                 <spring:message code="username" text="Username" var="username"/>
-                <form:input type="text" path="username" class="form-control" cssStyle="float: right; width: 300px" placeholder="${username}"
+                <form:input type="text" path="username" class="form-control" cssStyle="float: right; width: 320px" placeholder="${username}"
                             autofocus="true"/>
                 <form:errors path="username" cssClass="has-error"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="lastName" cssClass="labelRegInline"><spring:message code="lastName" text="Last Name"/>:</form:label>
                 <spring:message code="lastName" text="Last Name" var="lastName"/>
-                <form:input path="lastName" class="form-control" cssStyle="float: right; width: 300px" placeholder="${lastName}"/>
+                <form:input path="lastName" class="form-control" cssStyle="float: right; width: 320px" placeholder="${lastName}"/>
                 <form:errors path="lastName" cssClass="has-error"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="firstName" cssClass="labelRegInline"><spring:message code="firstName" text="First Name"/>:</form:label>
                 <spring:message code="firstName" text="First Name" var="firstName"/>
-                <form:input path="firstName" class="form-control" cssStyle="float: right; width: 300px" placeholder="${firstName}"/>
+                <form:input path="firstName" class="form-control" cssStyle="float: right; width: 320px" placeholder="${firstName}"/>
                 <form:errors path="firstName" cssClass="has-error"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="email" cssClass="labelRegInline"><spring:message code="email" text="Email"/>:</form:label>
                 <spring:message code="email" text="Email" var="email"/>
-                <form:input path="email" class="form-control" cssStyle="float: right; width: 300px" placeholder="${email}"/>
+                <form:input path="email" class="form-control" cssStyle="float: right; width: 320px" placeholder="${email}"/>
                 <form:errors path="email" cssClass="has-error"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="password" cssClass="labelRegInline"><spring:message code="password" text="Password"/>:</form:label>
                 <spring:message code="password" text="Password" var="password"/>
-                <form:password path="password" class="form-control" cssStyle="float: right; width: 300px" placeholder="${password}" onkeyup="doAjax()"/>
+                <form:password path="password" class="form-control" cssStyle="float: right; width: 320px" placeholder="${password}" onkeyup="doAjax()"/>
                 <form:errors path="password" cssClass="has-error"/>
-                <span style="float: right" id="strengthValue"></span>
+                <span style="float: right; margin-left: 500px" id="strengthValue"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="dateBirth" cssClass="labelRegInline"><spring:message code="dateBirth" text="Date Birth"/>:</form:label>
                 <spring:message code="dateBirth" text="Date Birth" var="dateBirth"/>
                 <spring:message code="dateFormat" text="dd/mm/yyyy" var="dateFormat"/>
-                <form:input path="dateBirth" class="form-control" cssStyle="float: right; width: 300px" placeholder="${dateBirth} (${dateFormat})"/>
+                <form:input path="dateBirth" class="form-control" cssStyle="float: right; width: 320px" placeholder="${dateBirth} (${dateFormat})"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="gender" cssClass="labelRegInline"><spring:message code="gender" text="Gender"/>:</form:label>
                 <spring:message code="gender" text="Gender" var="gender"/>
-                <form:input path="gender" class="form-control" cssStyle="float: right; width: 300px" placeholder="${gender}"/>
+                <form:input path="gender" class="form-control" cssStyle="float: right; width: 320px" placeholder="${gender}"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="phoneNumber" cssClass="labelRegInline"><spring:message code="phoneNumber" text="Phone number"/>:</form:label>
                 <spring:message code="phoneNumber" text="Phone number" var="phoneNumber"/>
                 <spring:message code="eg" text="eg" var="eg"/>
-                <form:input path="phoneNumber" class="form-control" cssStyle="float: right; width: 300px"
+                <form:input path="phoneNumber" class="form-control" cssStyle="float: right; width: 320px"
                             placeholder="${phoneNumber} ${eg}.+38(044)123-45-67"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="secondEmail" cssClass="labelRegInline"><spring:message code="emailReserve" text="Reserved Email"/>:</form:label>
                 <spring:message code="emailReserve" text="Reserved Email" var="emailReserve"/>
-                <form:input path="secondEmail" class="form-control" cssStyle="float: right; width: 300px" placeholder="${emailReserve}"/>
+                <form:input path="secondEmail" class="form-control" cssStyle="float: right; width: 320px" placeholder="${emailReserve}"/>
                 <form:errors path="secondEmail" cssClass="has-error"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="country" cssClass="labelRegInline"><spring:message code="country" text="Country"/>:</form:label>
                 <spring:message code="country" text="Country" var="country"/>
-                <form:input path="country" class="form-control" cssStyle="float: right; width: 300px" placeholder="${country}"/>
+                <form:input path="country" class="form-control" cssStyle="float: right; width: 320px" placeholder="${country}"/>
             </div>
 
         </fieldset>

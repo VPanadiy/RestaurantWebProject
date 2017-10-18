@@ -10,11 +10,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public class HUsersDao implements UsersDao {
 
     private SessionFactory sessionFactory;
 
     public static final Logger LOGGER = LoggerFactory.getLogger(HUsersDao.class);
+
+    @Override
+    public List<Users> getAllUsers() {
+        return sessionFactory.getCurrentSession().createQuery("SELECT u FROM Users u ORDER BY u.id").list();
+    }
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)

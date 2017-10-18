@@ -50,12 +50,31 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(Locale locale, @Valid @ModelAttribute("users") Users user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        Users userExists = userService.findUserByEmail(user.getEmail());
+        Users userExistsUsername = userService.findUserByName(user.getUsername());
+        Users userExistsEmail = userService.findUserByEmail(user.getEmail());
+        Users userExistsSecondEmail = userService.findUserBySecondEmail(user.getSecondEmail());
         modelAndView.addObject("currentTime", new Date().toString());
 
-        if (userExists != null) {
-            bindingResult.rejectValue("email", "error.user",
-                    messageSource.getMessage("emailError", new String[]{locale.getDisplayName(locale)}, locale));
+        if (userExistsUsername != null) {
+                bindingResult.rejectValue("username", "error.user",
+                        messageSource.getMessage("usernameExistError", new String[]{locale.getDisplayName(locale)}, locale));
+        }
+
+        if (userExistsEmail != null) {
+                bindingResult.rejectValue("email", "error.user",
+                        messageSource.getMessage("emailError", new String[]{locale.getDisplayName(locale)}, locale));
+        }
+
+        if (userExistsSecondEmail != null) {
+                bindingResult.rejectValue("secondEmail", "error.user",
+                        messageSource.getMessage("emailError", new String[]{locale.getDisplayName(locale)}, locale));
+        }
+
+        if (user.getEmail().equals(user.getSecondEmail())){
+            if (!(user.getEmail().equals("") && user.getSecondEmail().equals(""))) {
+                bindingResult.rejectValue("secondEmail", "error.user",
+                        messageSource.getMessage("emailAndSecondEmailCompareError", new String[]{locale.getDisplayName(locale)}, locale));
+            }
         }
 
         if (!bindingResult.hasErrors()) {
@@ -131,11 +150,11 @@ public class RegistrationController {
 
             userService.updateUserDetails(userExists);
 
-            RedirectView redirectView = new RedirectView("/user");
+            RedirectView redirectView = new RedirectView("/account");
             redirectView.setStatusCode(HttpStatus.FOUND);
             modelAndView.setView(redirectView);
         } else {
-            modelAndView.setViewName("content/user");
+            modelAndView.setViewName("content/account");
         }
         return modelAndView;
     }

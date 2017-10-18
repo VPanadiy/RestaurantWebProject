@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
@@ -63,7 +60,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/account", method = RequestMethod.GET)
     public ModelAndView userPage(Principal user) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
         Users loggedInUser = userService.findUserByName(user.getName());
@@ -76,7 +73,7 @@ public class UserController {
             modelAndView.addObject("userImage", base64Encoded);
         }
 
-        modelAndView.setViewName("content/user");
+        modelAndView.setViewName("content/account");
         return modelAndView;
     }
 
@@ -101,6 +98,33 @@ public class UserController {
     public ModelAndView downloadPDF() {
 
         return new ModelAndView("pdfView");
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public ModelAndView users(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.addObject("users", userService.getUsers());
+        modelAndView.addObject("usersRole", userService.getUsersRole());
+        modelAndView.setViewName("content/users");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
+    public ModelAndView employee(@PathVariable String username) throws UnsupportedEncodingException {
+        ModelAndView modelAndView = new ModelAndView();
+        Users loggedInUser = userService.findUserByName(username);
+
+        if (loggedInUser.getImageData() != null) {
+            byte[] encodeBase64 = Base64.encode(loggedInUser.getImageData());
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            modelAndView.addObject("userImage", base64Encoded);
+        }
+
+        modelAndView.addObject("currentTime", new Date().toString());
+        modelAndView.addObject("users", userService.findUserByName(username));
+        modelAndView.setViewName("content/user");
+        return modelAndView;
     }
 
     @Autowired

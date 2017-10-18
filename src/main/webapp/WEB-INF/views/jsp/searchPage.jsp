@@ -46,7 +46,7 @@
 <h1 class="h1Center"><spring:message code="searchResult" text="Search Result"/>:</h1>
 
 <c:choose>
-    <c:when test="${dishes != null}">
+    <c:when test="${dishes.size() != 0}">
         <table class="tableMain">
 
             <tr>
