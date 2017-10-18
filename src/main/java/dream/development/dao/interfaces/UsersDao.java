@@ -8,6 +8,8 @@ public interface UsersDao {
 
     Users findByEmail(String email);
 
+    Users findBySecondEmail(String email);
+
     Users findByName(String username);
 
     void insertProfileImage(Users user);

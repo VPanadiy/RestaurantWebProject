@@ -2,6 +2,7 @@ package dream.development.web;
 
 import dream.development.model.Users;
 import dream.development.service.UserService;
+import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Locale;
@@ -74,14 +76,59 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/updateUserDetails", method = RequestMethod.POST)
-    public ModelAndView updateUserDetails(Locale locale, Principal loggedInUser, @Valid @ModelAttribute("user") Users user, BindingResult bindingResult) {
+    @ResponseBody
+    public ModelAndView updateUserDetails(Locale locale, Principal loggedInUser, @Valid @ModelAttribute("user") Users user, BindingResult bindingResult) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
         Users userExists = userService.findUserByName(loggedInUser.getName());
+
+        Users userExistsUsername = userService.findUserByName(user.getUsername());
+        Users userExistsEmail = userService.findUserByEmail(user.getEmail());
+        Users userExistsSecondEmail = userService.findUserBySecondEmail(user.getSecondEmail());
         modelAndView.addObject("currentTime", new Date().toString());
 
+        if (userExists.getImageData() != null) {
+            byte[] encodeBase64 = Base64.encode(userExists.getImageData());
+            String base64Encoded = new String(encodeBase64, "UTF-8");
+            modelAndView.addObject("userImage", base64Encoded);
+        }
+
+        if (userExistsUsername != null) {
+            if (!userExistsUsername.getUsername().equals(user.getUsername())) {
+                bindingResult.rejectValue("username", "error.user",
+                        messageSource.getMessage("usernameExistError", new String[]{locale.getDisplayName(locale)}, locale));
+            }
+        }
+
+        if (userExistsEmail != null) {
+            if (!userExistsEmail.getEmail().equals(user.getEmail())) {
+                bindingResult.rejectValue("email", "error.user",
+                        messageSource.getMessage("emailError", new String[]{locale.getDisplayName(locale)}, locale));
+            }
+        }
+
+        if (userExistsSecondEmail != null) {
+            if (!userExistsSecondEmail.getSecondEmail().equals(user.getSecondEmail())) {
+                bindingResult.rejectValue("secondEmail", "error.user",
+                        messageSource.getMessage("emailError", new String[]{locale.getDisplayName(locale)}, locale));
+            }
+        }
+
+        if (user.getEmail().equals(user.getSecondEmail())){
+            bindingResult.rejectValue("secondEmail", "error.user",
+                    messageSource.getMessage("emailAndSecondEmailCompareError", new String[]{locale.getDisplayName(locale)}, locale));
+        }
+
         if (!bindingResult.hasErrors()) {
-            userExists.setFirstName(user.getFirstName());
+            userExists.setUsername(user.getUsername());
             userExists.setLastName(user.getLastName());
+            userExists.setFirstName(user.getFirstName());
+            userExists.setEmail(user.getEmail());
+            userExists.setDateBirth(user.getDateBirth());
+            userExists.setGender(user.getGender());
+            userExists.setPhoneNumber(user.getPhoneNumber());
+            userExists.setSecondEmail(user.getSecondEmail());
+            userExists.setCountry(user.getCountry());
+
             userService.updateUserDetails(userExists);
 
             RedirectView redirectView = new RedirectView("/user");

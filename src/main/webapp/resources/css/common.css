@@ -41,6 +41,13 @@ img {
     margin-bottom: 7px;
 }
 
+.labelRegInline {
+    display: inline;
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 14px;
+}
+
 .trNone {
     border: none;
 }
@@ -245,12 +252,17 @@ img {
 }
 
 .has-error {
-    color: red
+    color: red;
+    display: inline-block;
+}
+
+.hasLogin-error {
+    color: red;
 }
 
 .nothingFound {
     align-items: center;
     text-align: center;
     font-style: italic;
-    color: red
+    color: red;
 }

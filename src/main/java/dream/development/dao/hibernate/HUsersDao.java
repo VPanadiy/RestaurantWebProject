@@ -33,6 +33,15 @@ public class HUsersDao implements UsersDao {
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
+    public Users findBySecondEmail(String email) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT u FROM Users u WHERE u.secondEmail LIKE :email");
+        query.setParameter("email", email);
+        return (Users) query.uniqueResult();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public Users findByName(String username) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("SELECT u FROM Users u WHERE u.username LIKE :username");

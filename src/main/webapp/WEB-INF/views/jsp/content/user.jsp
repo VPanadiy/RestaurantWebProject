@@ -54,8 +54,6 @@
 <h1 class="h1Center"><spring:message code="userPage" text="User page"/>!</h1>
 <h3 class="h3Center"><spring:message code="hello" text="Hello"/> ${user.username}!</h3>
 
-<p><spring:message code="password" text="Password"/>: ${user.password}!</p>
-<p><spring:message code="email" text="Email"/>: ${user.email}!</p>
 <p><spring:message code="profileImage" text="Profile image"/>: <img width="100px" height="100px" src="data:image/jpeg;base64,${userImage}"/></p>
 
 <h3><a href="downloadPDF"><spring:message code="downloadPDF" text="Download PDF Document"/></a></h3>
@@ -78,12 +76,14 @@
             <form:label path="lastName" cssClass="labelInline"><spring:message code="lastName" text="Last Name"/>:</form:label>
             <spring:message code="lastName" text="Last Name" var="lastName"/>
             <form:input path="lastName" class="form-control" cssStyle="float: right; width: 300px" placeholder="${lastName}"/>
+            <form:errors path="lastName" cssClass="has-error"/>
         </div>
 
         <div class="form-group">
             <form:label path="firstName" cssClass="labelInline"><spring:message code="firstName" text="First Name"/>:</form:label>
             <spring:message code="firstName" text="First Name" var="firstName"/>
             <form:input path="firstName" class="form-control" cssStyle="float: right; width: 300px" placeholder="${firstName}"/>
+            <form:errors path="firstName" cssClass="has-error"/>
         </div>
 
         <div class="form-group">
@@ -126,6 +126,7 @@
             <form:label path="secondEmail" cssClass="labelInline"><spring:message code="emailReserve" text="Reserved Email"/>:</form:label>
             <spring:message code="emailReserve" text="Reserved Email" var="emailReserve"/>
             <form:input path="secondEmail" class="form-control" cssStyle="float: right; width: 300px" placeholder="${emailReserve}"/>
+            <form:errors path="secondEmail" cssClass="has-error"/>
         </div>
 
         <div class="form-group">

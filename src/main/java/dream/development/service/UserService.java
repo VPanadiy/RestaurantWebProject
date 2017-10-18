@@ -29,6 +29,11 @@ public class UserService {
     }
 
     @Transactional
+    public Users findUserBySecondEmail(String email) {
+        return usersDao.findBySecondEmail(email);
+    }
+
+    @Transactional
     public Users findUserByName(String username) {
         return usersDao.findByName(username);
     }
