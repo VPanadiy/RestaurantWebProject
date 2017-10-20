@@ -20,10 +20,15 @@
         <intercept-url pattern="/account" access="isAuthenticated()"/>
         <intercept-url pattern="/fileUploaded" access="isAuthenticated()"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/employee/*" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/employees" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/employee/*" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/users" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/user/*" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/warehouse" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/dishes" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/menus" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/orderHistory" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/orderHistory/*" access="hasRole('ROLE_ADMIN')"/>
 
         <form-login login-page='/login'
                     default-target-url="/account"

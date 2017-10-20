@@ -8,11 +8,16 @@
     <bean id="menuService" class="dream.development.service.MenuService"/>
     <bean id="dishService" class="dream.development.service.DishService"/>
     <bean id="usersService" class="dream.development.service.UserService"/>
+    <bean id="warehouseService" class="dream.development.service.WarehouseService"/>
+    <bean id="orderService" class="dream.development.service.OrderService"/>
 
     <bean id="employeeDao" class="dream.development.dao.hibernate.HEmployeeDao"/>
     <bean id="menuDao" class="dream.development.dao.hibernate.HMenuDao"/>
     <bean id="dishDao" class="dream.development.dao.hibernate.HDishDao"/>
     <bean id="usersDao" class="dream.development.dao.hibernate.HUsersDao"/>
     <bean id="groupMembersDao" class="dream.development.dao.hibernate.HGroupMembersDao"/>
+    <bean id="warehouseDao" class="dream.development.dao.hibernate.HWarehouseDao"/>
+    <bean id="ordersDao" class="dream.development.dao.hibernate.HOrderDao"/>
+    <bean id="ingredientDao" class="dream.development.dao.hibernate.HIngredientDao"/>
 
 </beans>

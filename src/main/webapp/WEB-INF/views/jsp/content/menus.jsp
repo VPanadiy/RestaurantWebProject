@@ -18,10 +18,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Admin page">
+    <meta name="description" content="Administration page of menu">
     <meta name="author" content="VPanadiy">
 
-    <title>Admin page</title>
+    <title>Menu`s page</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -44,35 +44,24 @@
 
 <%@ include file="../navigation.jsp" %>
 
-<h1 class="h1Center"><spring:message code="admin" text="Administrator page"/>!</h1>
-<h3 class="h3Center"><spring:message code="hello" text="Hello"/> ${user.username}!</h3>
+<h1 class="h1Center"><spring:message code="menu" text="Menu"/></h1>
 
-<p><spring:message code="password" text="Password"/>: ${user.password}!</p>
-<p><spring:message code="email" text="Email"/>: ${user.email}!</p>
+<table class="tableMain">
 
-<p><spring:message code="profileImage" text="Profile image"/>:
-    <c:choose>
-        <c:when test="${userImage.length() != null}">
-            <img style="border: solid black 1px" width="100px" height="100px"
-                 src="data:image/jpeg;base64,${userImage}"/>
-        </c:when>
-        <c:otherwise>
-            <img style="border: solid black 1px" width="100px" height="100px"
-                 src="../../../../resources/images/defaultAvatar.png">
-        </c:otherwise>
-    </c:choose>
-</p>
+    <tr>
+        <th><spring:message code="id" text="Id"/></th>
+        <th><spring:message code="name" text="Name"/></th>
+    </tr>
 
-<p><a href="<c:url value="/employees"/>"><spring:message code="employees" text="Employees"/></a></p>
-<p><a href="<c:url value="/users"/>"><spring:message code="usersPage" text="Users page"/></a></p>
-<p><a href="<c:url value="/warehouse"/>"><spring:message code="warehouse" text="Warehouse"/></a></p>
-<p><a href="<c:url value="/dishes"/>"><spring:message code="dishes" text="Dishes"/></a></p>
-<p><a href="<c:url value="/menus"/>"><spring:message code="menu" text="Menu"/></a></p>
-<p><a href="<c:url value="/orderHistory"/>"><spring:message code="ordersHistory" text="Orders History "/></a></p>
+    <c:forEach items="${menus}" var="menu">
+        <tr>
+            <td>${menu.id}</td>
+            <td>${menu.name}</td>
+        </tr>
+    </c:forEach>
 
-<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-    <input type="submit" value="<spring:message code="logout" text="Logout"/>"/>
-</form:form>
+</table>
+
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->

@@ -20,5 +20,9 @@ public interface WarehouseDao {
 
     void remove(String name);
 
+    void removeById(Long id);
+
     void update(Warehouse warehouse);
+
+    Warehouse getByNameId(Long id);
 }

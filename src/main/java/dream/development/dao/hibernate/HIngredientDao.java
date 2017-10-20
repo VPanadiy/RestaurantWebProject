@@ -61,6 +61,20 @@ public class HIngredientDao implements IngredientDao {
         query.executeUpdate();
     }
 
+    @Override
+    public void removeById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("DELETE FROM Ingredient i WHERE i.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void update(Ingredient ingredient) {
+        sessionFactory.getCurrentSession().saveOrUpdate(ingredient);
+    }
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

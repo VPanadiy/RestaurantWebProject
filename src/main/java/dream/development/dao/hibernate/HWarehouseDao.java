@@ -63,8 +63,26 @@ public class HWarehouseDao implements WarehouseDao {
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
+    public void removeById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("DELETE FROM Warehouse w WHERE w IN (SELECT w FROM Warehouse w INNER JOIN w.ingredient WHERE w.ingredient.id = :id)");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public void update(Warehouse warehouse) {
         sessionFactory.getCurrentSession().saveOrUpdate(warehouse);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public Warehouse getByNameId(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT w FROM Warehouse w INNER JOIN w.ingredient WHERE w.ingredient.id = :id");
+        query.setParameter("id", id);
+        return (Warehouse) query.uniqueResult();
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

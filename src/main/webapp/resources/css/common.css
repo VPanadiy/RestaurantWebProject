@@ -34,6 +34,10 @@ img {
     margin: 0 auto;
 }
 
+.inputFull {
+    width: 100%;
+}
+
 .labelInline {
     display: inline;
     float: left;

@@ -19,4 +19,8 @@ public interface IngredientDao {
     Ingredient getByName(String name);
 
     void remove(String name);
+
+    void removeById(Long id);
+
+    void update(Ingredient ingredient);
 }
