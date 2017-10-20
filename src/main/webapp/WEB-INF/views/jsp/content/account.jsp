@@ -143,7 +143,7 @@
             <div class="form-group" style="overflow: auto; margin-bottom: 0">
                 <form:label path="dateBirth" cssClass="labelInline"><spring:message code="dateBirth" text="Date Birth"/>:</form:label>
                 <spring:message code="dateBirth" text="Date Birth" var="dateBirth"/>
-                <spring:message code="dateFormat" text="dd/mm/yyyy" var="dateFormat"/>
+                <spring:message code="dateFormat" text="yyyy-MM-dd" var="dateFormat"/>
                 <form:input path="dateBirth" class="form-control" cssStyle="float: right; width: 320px"
                             placeholder="${dateBirth} (${dateFormat})"/>
             </div>

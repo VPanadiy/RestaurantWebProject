@@ -2,6 +2,7 @@ package dream.development.model;
 
 import dream.development.model.enums.Position;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class Employee {
     @Column(name = "name")
     private String name;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_birth")
     private LocalDate dateBirth;
 
@@ -98,13 +100,15 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "id=" + id +
+        return "Employee{" +
+                "id=" + id +
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", dateBirth=" + dateBirth +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", position=" + position +
-                ", salary=" + salary;
+                ", salary=" + salary +
+                '}';
     }
 }
 

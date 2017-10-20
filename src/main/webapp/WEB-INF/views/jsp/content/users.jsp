@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ page errorPage="../error.jsp" %>
@@ -45,6 +46,8 @@
 
 <h1 class="h1Center"><spring:message code="usersPage" text="Users page"/>!</h1>
 
+<p class="pLeft"><a href="<c:url value="/registration"/>">+ <spring:message code="addNewUser" text="Create new user"/></a></p>
+
 <table class="tableMain" style="align-items: center">
     <tr>
         <th><spring:message code="id" text="Id"/></th>
@@ -71,6 +74,8 @@
     </c:forEach>
 
 </table>
+
+<p class="pRight"><a href="<c:url value="/admin"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message code="admin" text="Administrator page"/></a></p>
 
 </body>
 <!-- /MAIN SECTION -->

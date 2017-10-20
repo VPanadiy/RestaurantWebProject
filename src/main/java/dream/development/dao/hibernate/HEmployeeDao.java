@@ -54,10 +54,25 @@ public class HEmployeeDao implements EmployeeDao {
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
+    public void update(Employee employee) {
+        sessionFactory.getCurrentSession().saveOrUpdate(employee);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public void remove(String name) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("DELETE FROM Employee e WHERE e.name LIKE :name");
         query.setParameter("name", name);
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void removeByID(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("DELETE FROM Employee e WHERE e.id = :id");
+        query.setParameter("id", id);
         query.executeUpdate();
     }
 

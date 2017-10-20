@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ page errorPage="../error.jsp" %>
@@ -90,7 +91,7 @@
 
         <div class="form-group" style="overflow: auto; margin-bottom: 0">
             <label class="labelInline"><spring:message code="dateBirth" text="Date Birth"/>:</label>
-            <input type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="dateBirth" text="Date Birth"/> <spring:message code="eg" text="eg"/>. <spring:message code="dateFormat" text="dd/mm/yyyy"/>" value="${users.dateBirth}"/>
+            <input type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="dateBirth" text="Date Birth"/> <spring:message code="eg" text="eg"/>. <spring:message code="dateFormat" text="yyyy-MM-dd"/>" value="${users.dateBirth}"/>
         </div>
 
         <div class="form-group" style="overflow: auto; margin-bottom: 0">

@@ -18,5 +18,9 @@ public interface EmployeeDao {
 
     Employee getByName(String name);
 
+    void update(Employee employee);
+
     void remove(String name);
+
+    void removeByID(Long id);
 }

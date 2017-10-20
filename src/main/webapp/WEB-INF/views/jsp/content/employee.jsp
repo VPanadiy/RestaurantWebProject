@@ -3,8 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page errorPage="../error.jsp" %>
+
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -45,27 +50,60 @@
 
 <h1 class="h1Center">${employee.surname} ${employee.name}</h1>
 
-<table class="tableMain" style="align-items: center">
-    <tr>
-        <th><spring:message code="id" text="Id"/></th>
-        <th><spring:message code="lastName" text="Last Name"/></th>
-        <th><spring:message code="firstName" text="First Name"/></th>
-        <th><spring:message code="dateBirth" text="Date Birth"/></th>
-        <th><spring:message code="phoneNumber" text="Phone number"/></th>
-        <th><spring:message code="appointment" text="Appointment"/></th>
-        <th><spring:message code="salary" text="Salary"/></th>
-    </tr>
+<div class="container" style="width: 575px; margin-bottom: 10px;">
 
-    <tr>
-        <td>${employee.id}</td>
-        <td>${employee.surname}</td>
-        <td>${employee.name}</td>
-        <td>${employee.dateBirth}</td>
-        <td>${employee.phoneNumber}</td>
-        <td>${employee.position}</td>
-        <td>${employee.salary}</td>
-    </tr>
-</table>
+    <form:form action="/updateEmployee" modelAttribute="employee" method="POST">
+
+        <fieldset>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="lastName" text="Last Name"/>:</label>
+                <input name="surname" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="lastName" text="Last Name"/>" value="${employee.surname}"/>
+            </div>
+
+            <div class="form-group"  style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="firstName" text="First Name"/>:</label>
+                <input name="name" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="firstName" text="First Name"/>" value="${employee.name}"/>
+            </div>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="dateBirth" text="Date Birth"/>:</label>
+                <input id="dateBirth" name="dateBirth" type="date" min="${year-200}-01-01" max="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />" pattern="yyyy-MM-dd" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="dateBirth" text="Date Birth"/> <spring:message code="eg" text="eg"/>. <spring:message code="dateFormat" text="yyyy-MM-dd"/>" value="${employee.dateBirth}"/>
+            </div>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="phoneNumber" text="Phone number"/>:</label>
+                <input name="phoneNumber" type="tel" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="phoneNumber" text="Phone number"/> <spring:message code="eg" text="eg"/>. +38(044)123-45-67" value="${employee.phoneNumber}"/>
+            </div>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="appointment" text="Appointment"/>:</label>
+                <input name="position" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="appointment" text="Appointment"/>" value="${employee.position}"/>
+            </div>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="salary" text="Salary"/>:</label>
+                <input name="salary" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="salary" text="Salary"/>" value="${employee.salary}"/>
+            </div>
+
+        </fieldset>
+
+        <footer>
+            <form:form action="/updateEmployee" modelAttribute="employee" method="POST">
+                <input type="hidden" name="idEmployee" value="${employee.id}"/>
+                <input type="submit" style="margin-top: 10px; margin-bottom: 10px;" class="btn btn-lg btn-primary btn-block" value="<spring:message code="update" text="Update"/>">
+            </form:form>
+
+            <form:form action="/deleteEmployee" modelAttribute="employee" method="POST">
+                <input type="hidden" name="employeePage" value="true"/>
+                <input type="hidden" name="idEmployee" value="${employee.id}"/>
+                <input type="submit" style="margin-bottom: 10px;" class="btn btn-lg btn-primary btn-block" value="<spring:message code="delete" text="Delete"/>">
+            </form:form>
+        </footer>
+
+    </form:form>
+
+</div>
 
 <p class="pRight"><a href="<c:url value="/employees"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message code="employees" text="Employees"/></a></p>
 

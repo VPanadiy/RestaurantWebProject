@@ -3,8 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page errorPage="../error.jsp" %>
+
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -45,20 +50,77 @@
 
 <h1 class="h1Center"><spring:message code="employees" text="Employees"/></h1>
 
+<h3><spring:message code="addNewEmployee" text="Add new employee"/>:</h3>
+
+<div class="container" style="width: 575px; margin-left: 0; margin-bottom: 10px">
+
+<form:form action="/addNewEmployee" modelAttribute="employee" method="POST">
+
+    <fieldset>
+
+        <div class="form-group" style="overflow: auto; margin-bottom: 0">
+            <label class="labelInline"><spring:message code="lastName" text="Last Name"/>:</label>
+            <input name="surname" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="lastName" text="Last Name"/>"/>
+        </div>
+
+        <div class="form-group"  style="overflow: auto; margin-bottom: 0">
+            <label class="labelInline"><spring:message code="firstName" text="First Name"/>:</label>
+            <input name="name" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="firstName" text="First Name"/>"/>
+        </div>
+
+        <div class="form-group" style="overflow: auto; margin-bottom: 0">
+            <label class="labelInline"><spring:message code="dateBirth" text="Date Birth"/>:</label>
+            <input id="dateBirth" name="dateBirth" type="date" min="${year-200}-01-01" max="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />" pattern="yyyy-MM-dd" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="dateBirth" text="Date Birth"/> <spring:message code="eg" text="eg"/>. <spring:message code="dateFormat" text="yyyy-MM-dd"/>"/>
+        </div>
+
+        <div class="form-group" style="overflow: auto; margin-bottom: 0">
+            <label class="labelInline"><spring:message code="phoneNumber" text="Phone number"/>:</label>
+            <input name="phoneNumber" type="tel" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="phoneNumber" text="Phone number"/> <spring:message code="eg" text="eg"/>. +38(044)123-45-67"/>
+        </div>
+
+        <div class="form-group" style="overflow: auto; margin-bottom: 0">
+            <label class="labelInline"><spring:message code="appointment" text="Appointment"/>:</label>
+            <input name="position" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="appointment" text="Appointment"/>"/>
+        </div>
+
+        <div class="form-group" style="overflow: auto; margin-bottom: 0">
+            <label class="labelInline"><spring:message code="salary" text="Salary"/>:</label>
+            <input name="salary" type="text" class="form-control" style="float: right; width: 320px" placeholder="<spring:message code="salary" text="Salary"/>"/>
+        </div>
+
+    </fieldset>
+
+    <footer>
+        <input type="submit" class="btn btn-lg btn-primary btn-block"
+               value="<spring:message code="add" text="Add"/>">
+    </footer>
+
+    </form:form>
+
+</div>
+
 <table class="tableMain" style="align-items: center">
     <tr>
         <th><spring:message code="id" text="Id"/></th>
         <th><spring:message code="lastName" text="Last Name"/></th>
         <th><spring:message code="firstName" text="First Name"/></th>
         <th><spring:message code="appointment" text="Appointment"/></th>
+        <th><spring:message code="action" text="Action"/></th>
     </tr>
 
     <c:forEach items="${employees}" var="employee">
         <tr>
             <td>${employee.id}</td>
-            <td>${employee.surname}</td>
-            <td><a href="/employee/${employee.name}">${employee.name}</a></td>
+            <td><a href="/employee/${employee.id}_${employee.surname}_${employee.name}">${employee.surname}</a></td>
+            <td><a href="/employee/${employee.id}_${employee.surname}_${employee.name}">${employee.name}</a></td>
             <td>${employee.position}</td>
+            <td>
+                <form:form action="/deleteEmployee" modelAttribute="employee" method="POST">
+                    <input type="hidden" name="employeePage" value="false"/>
+                    <input type="hidden" name="idEmployee" value="${employee.id}"/>
+                    <input type="submit" value="<spring:message code="delete" text="Delete"/>">
+                </form:form>
+            </td>
         </tr>
     </c:forEach>
 
