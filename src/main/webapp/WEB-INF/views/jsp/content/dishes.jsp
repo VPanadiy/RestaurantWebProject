@@ -4,6 +4,7 @@
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@ page errorPage="../error.jsp" %>
 
@@ -46,27 +47,96 @@
 
 <h1 class="h1Center"><spring:message code="dishes" text="Dishes"/></h1>
 
-<table class="tableMain">
+<div class="container" style="width: 575px; margin-left: 0; margin-bottom: 10px">
+
+    <h3><spring:message code="addNewDish" text="Add new dish"/>:</h3>
+
+    <form:form action="/addNewDish" modelAttribute="dish" method="POST">
+
+        <fieldset>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="name" text="Name"/>:</label>
+                <input name="name" type="text" class="form-control" style="float: right; width: 320px"
+                       placeholder="<spring:message code="name" text="Name"/>"/>
+            </div>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="weight" text="Weight"/>:</label>
+                <input name="weight" type="text" class="form-control" style="float: right; width: 320px"
+                       placeholder="<spring:message code="weight" text="Weight"/>"/>
+            </div>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="cost" text="Cost"/>:</label>
+                <input name="cost" type="text" class="form-control" style="float: right; width: 320px"
+                       placeholder="<spring:message code="cost" text="Cost"/>"/>
+            </div>
+
+            <div class="form-group" style="overflow: auto; margin-bottom: 0">
+                <label class="labelInline"><spring:message code="menu" text="Menu"/>:</label>
+                <input name="menuName" type="text" class="form-control" style="float: right; width: 320px"
+                       placeholder="<spring:message code="menu" text="Menu"/>"/>
+            </div>
+
+        </fieldset>
+
+        <footer>
+            <input type="submit" class="btn btn-lg btn-primary btn-block"
+                   value="<spring:message code="add" text="Add"/>">
+        </footer>
+
+    </form:form>
+
+</div>
+
+<table class="tableMain" style="align-items: center">
 
     <tr>
-        <th><spring:message code="id" text="Id"/></th>
-        <th><spring:message code="name" text="Name"/></th>
-        <th><spring:message code="weight" text="Weight"/></th>
+        <th style="width: 5%"><spring:message code="id" text="Id"/></th>
+        <th>
+            <form:form action="/dishFilter" modelAttribute="dishes" method="POST">
+                <label for="searchButton"><spring:message code="filter" text="Filter"/>:</label><input class="inputMain"
+                                                                                                       type="text"
+                                                                                                       id="searchButton"
+                                                                                                       name="dishName"
+                                                                                                       placeholder="<spring:message code="name" text="Name"/>"><input
+                    id="searchSubmit" class="inputMain" type="submit" style="width: 100px; padding-top: 3px;"
+                    value="<spring:message code="filter" text="Filter"/>">
+            </form:form>
+        </th>
         <th><spring:message code="cost" text="Cost"/></th>
+        <th><spring:message code="weight" text="Weight"/></th>
         <th><spring:message code="category" text="Category"/></th>
+        <th colspan="2" style="width: 15%"><spring:message code="actions" text="Actions"/></th>
     </tr>
 
-    <c:forEach items="${dishes}" var="dish" varStatus="index">
+    <c:forEach items="${dishes}" var="dish">
         <tr>
-            <td>${index.count}</td>
-            <td class="thLeft"><a href="/dish/${dish.name}">${dish.name}</a></td>
-            <td>${dish.weight}</td>
-            <td>${dish.cost}</td>
-            <td>${dish.menu.name}</td>
+            <form:form action="/updateDish" modelAttribute="dish" method="POST">
+                <td>${dish.id}</td>
+                <td><input type="text" class="inputFull" name="name" value="${dish.name}"></td>
+                <td><input type="text" class="inputFull" name="cost" value="${dish.cost}"></td>
+                <td><input type="text" class="inputFull" name="weight" value="${dish.weight}"></td>
+                <td><input type="text" class="inputFull" name="menuName" value="${dish.menu.name}"></td>
+                <td>
+                    <input type="hidden" name="dishId" value="${dish.id}"/>
+                    <input type="submit" class="inputMain" style="padding: 0 0 0 0;" value="<spring:message code="update" text="Update"/>">
+                </td>
+            </form:form>
+            <td>
+                <form:form action="/deleteDish" modelAttribute="dish" method="POST">
+                    <input type="hidden" name="dishId" value="${dish.id}"/>
+                    <input type="submit" class="inputMain" style="padding: 0 0 0 0;" value="<spring:message code="delete" text="Delete"/>">
+                </form:form>
+            </td>
         </tr>
     </c:forEach>
 
 </table>
+
+<p class="pRight"><a href="<c:url value="/admin"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message
+        code="admin" text="Administrator page"/></a></p>
 
 </body>
 <!-- /MAIN SECTION -->

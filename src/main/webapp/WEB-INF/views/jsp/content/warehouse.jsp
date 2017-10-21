@@ -49,7 +49,7 @@
 
 <div class="container" style="width: 575px; margin-left: 0; margin-bottom: 10px">
 
-    <h3><spring:message code="addNewIngredient" text="Add new ingredient"/>:</h3>
+<h3><spring:message code="addNewIngredient" text="Add new ingredient"/>:</h3>
 
     <form:form action="/addNewIngredient" modelAttribute="ingredient" method="POST">
 
@@ -88,7 +88,17 @@
 
     <tr>
         <th style="width: 5%"><spring:message code="id" text="Id"/></th>
-        <th><spring:message code="name" text="Name"/></th>
+        <th>
+            <form:form action="/ingredientFilter" modelAttribute="warehouse" method="POST">
+                <label for="searchButton"><spring:message code="filter" text="Filter"/>:</label><input class="inputMain"
+                                                                                                       type="text"
+                                                                                                       id="searchButton"
+                                                                                                       name="ingredientName"
+                                                                                                       placeholder="<spring:message code="name" text="Name"/>"><input
+                    id="searchSubmit" class="inputMain" type="submit" style="width: 100px; padding-top: 3px;"
+                    value="<spring:message code="filter" text="Filter"/>">
+            </form:form>
+        </th>
         <th><spring:message code="amount" text="Amount"/></th>
         <th><spring:message code="unit" text="Unit"/></th>
         <th colspan="2" style="width: 15%"><spring:message code="actions" text="Actions"/></th>
@@ -102,7 +112,6 @@
             <td><input type="text" class="inputFull" name="amount" value="${ingredient.amount}"></td>
             <td><input type="text" class="inputFull" name="unit" value="${ingredient.unit}"></td>
             <td>
-                <%--<form:form action="/updateIngredient" modelAttribute="warehouse" method="POST">--%>
                     <input type="hidden" name="ingredientId" value="${ingredient.ingredient.id}"/>
                     <input type="submit" class="inputMain" style="padding: 0 0 0 0;" value="<spring:message code="update" text="Update"/>">
             </td>

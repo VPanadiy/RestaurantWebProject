@@ -58,6 +58,11 @@ public class WarehouseService {
         ingredientDao.update(ingredient);
     }
 
+    @Transactional
+    public List<Warehouse> searchIngredientsFromWarehouseByName(String name) {
+        return warehouseDao.searchListByName(name);
+    }
+
     public void setWarehouseDao(WarehouseDao warehouseDao) {
         this.warehouseDao = warehouseDao;
     }

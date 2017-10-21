@@ -85,6 +85,15 @@ public class HWarehouseDao implements WarehouseDao {
         return (Warehouse) query.uniqueResult();
     }
 
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public List<Warehouse> searchListByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT w FROM Warehouse w WHERE lower(w.ingredient.name) LIKE :name ORDER BY w.ingredient.id");
+        query.setParameter("name", "%" + name.toLowerCase()+ "%");
+        return query.getResultList();
+    }
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

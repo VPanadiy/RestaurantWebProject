@@ -21,4 +21,8 @@ public interface DishDao {
     Dish getByName(String name);
 
     void remove(String name);
+
+    void removeById(Long id);
+
+    void update(Dish dish);
 }

@@ -36,6 +36,15 @@ public class HMenuDao implements MenuDao {
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
+    public List<Menu> getByNameValue(String menuValue) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT m FROM Menu m WHERE lower(m.name) LIKE :menuValue ORDER BY m.id");
+        query.setParameter("menuValue", "%" + menuValue.toLowerCase() + "%");
+        return (List<Menu>) query.list();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public Menu getById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("SELECT m FROM Menu m WHERE m.id = :id");
@@ -58,6 +67,15 @@ public class HMenuDao implements MenuDao {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("DELETE FROM Menu m WHERE m.name LIKE :name");
         query.setParameter("name", name);
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void removeById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("DELETE FROM Menu m WHERE m.id = :id");
+        query.setParameter("id", id);
         query.executeUpdate();
     }
 

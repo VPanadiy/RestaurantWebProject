@@ -25,4 +25,6 @@ public interface WarehouseDao {
     void update(Warehouse warehouse);
 
     Warehouse getByNameId(Long id);
+
+    List<Warehouse> searchListByName(String name);
 }

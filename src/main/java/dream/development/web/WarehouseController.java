@@ -15,15 +15,16 @@ import java.util.Date;
 import java.util.Locale;
 
 @Controller
+@SessionAttributes("warehouse")
 public class WarehouseController {
 
     private WarehouseService warehouseService;
 
     @RequestMapping(value = "/warehouse", method = RequestMethod.GET)
-    public ModelAndView warehouse() {
+    public ModelAndView warehouse(@ModelAttribute("ingredientName") String ingredientName) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("currentTime", new Date().toString());
-        modelAndView.addObject("warehouse", warehouseService.getIngredientsFromWarehouse());
+        modelAndView.addObject("warehouse", warehouseService.searchIngredientsFromWarehouseByName(ingredientName));
         modelAndView.setViewName("content/warehouse");
         return modelAndView;
     }
@@ -91,6 +92,23 @@ public class WarehouseController {
 
             warehouseService.updateIngredient(existIngredient);
             warehouseService.updateIngredientInWarehouse(existWarehouse);
+
+            RedirectView redirectView = new RedirectView("warehouse");
+            modelAndView.setView(redirectView);
+        } else {
+            modelAndView.setViewName("content/warehouse");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/ingredientFilter", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView ingredientFilter(@ModelAttribute("ingredientName") String ingredientName, BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (!bindingResult.hasErrors()) {
+            modelAndView.addObject("currentTime", new Date().toString());
+            modelAndView.addObject("warehouse", warehouseService.searchIngredientsFromWarehouseByName(ingredientName));
 
             RedirectView redirectView = new RedirectView("warehouse");
             modelAndView.setView(redirectView);

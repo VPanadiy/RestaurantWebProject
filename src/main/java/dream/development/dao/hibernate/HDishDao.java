@@ -38,7 +38,7 @@ public class HDishDao implements DishDao {
     @Transactional(propagation = Propagation.MANDATORY)
     public List<Dish> getByNameValue(String nameValue) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("SELECT d FROM Dish d WHERE lower(d.name) LIKE :nameValue");
+        Query query = session.createQuery("SELECT d FROM Dish d WHERE lower(d.name) LIKE :nameValue ORDER BY d.id");
         query.setParameter("nameValue", "%" + nameValue.toLowerCase() + "%");
         return (List<Dish>) query.list();
     }
@@ -68,6 +68,21 @@ public class HDishDao implements DishDao {
         Query query = session.createQuery("DELETE FROM Dish d WHERE d.name LIKE :name");
         query.setParameter("name", name);
         query.executeUpdate();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void removeById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("DELETE FROM Dish d WHERE d.id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void update(Dish dish) {
+        sessionFactory.getCurrentSession().saveOrUpdate(dish);
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

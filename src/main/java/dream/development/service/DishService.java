@@ -24,8 +24,28 @@ public class DishService {
     }
 
     @Transactional
+    public Dish getDishById(Long id) {
+        return dishDao.getById(id);
+    }
+
+    @Transactional
     public List<Dish> getDishesByValue(String nameValue) {
         return dishDao.getByNameValue(nameValue);
+    }
+
+    @Transactional
+    public void insertDish(Dish dish) {
+        dishDao.insert(dish);
+    }
+
+    @Transactional
+    public void updateDish(Dish dish) {
+        dishDao.update(dish);
+    }
+
+    @Transactional
+    public void removeDishById(Long id) {
+        dishDao.removeById(id);
     }
 
     public void setDishDao(DishDao dishDao) {

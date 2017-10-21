@@ -14,11 +14,15 @@ public interface MenuDao {
 
     List<Menu> getAll();
 
+    List<Menu> getByNameValue(String menuValue);
+
     Menu getById(Long id);
 
     Menu getByName(String name);
 
     void remove(String name);
+
+    void removeById(Long id);
 
     void update(Menu menu);
 }
