@@ -31,7 +31,6 @@ public class DishController {
     @RequestMapping(value = "/dishes", method = RequestMethod.GET)
     public ModelAndView dishes(@ModelAttribute("dishName") String dishName){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("dishes", dishService.getDishesByValue(dishName));
         modelAndView.setViewName("content/dishes");
         return modelAndView;
@@ -40,7 +39,6 @@ public class DishController {
     @RequestMapping(value = "/dish/{dishName}", method = RequestMethod.GET)
     public ModelAndView dish(@PathVariable String dishName){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("dish",dishService.getDishByName(dishName));
         modelAndView.setViewName("dish");
         return modelAndView;
@@ -51,7 +49,6 @@ public class DishController {
     public ModelAndView addNewDish(Locale locale, @ModelAttribute("menuName") String menuName, @ModelAttribute("dish") Dish dish, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("dishes", dishService.getDishes());
-        modelAndView.addObject("currentTime", new Date().toString());
         Menu menu = menuService.getMenuByName(menuName);
 
         if (!bindingResult.hasErrors()) {
@@ -76,7 +73,6 @@ public class DishController {
     @ResponseBody
     public ModelAndView deleteDish(@ModelAttribute("dishId") Long id, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("dish", dishService.getDishes());
 
         if (!bindingResult.hasErrors()) {
@@ -94,7 +90,6 @@ public class DishController {
     @ResponseBody
     public ModelAndView updateDish(@ModelAttribute("dishId") Long id, @ModelAttribute("menuName") String menuName, @ModelAttribute("dish") Dish dish, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("dish", dishService.getDishes());
         Dish existDish = dishService.getDishById(id);
         Menu menu = menuService.getMenuByName(menuName);
@@ -122,7 +117,6 @@ public class DishController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (!bindingResult.hasErrors()) {
-            modelAndView.addObject("currentTime", new Date().toString());
             modelAndView.addObject("dishes", dishService.getDishesByValue(dishName));
 
             RedirectView redirectView = new RedirectView("dishes");
@@ -136,9 +130,56 @@ public class DishController {
     @RequestMapping(value = "/orderHistory", method = RequestMethod.GET)
     public ModelAndView orders(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("orders", orderService.getOrders());
         modelAndView.setViewName("content/orderHistory");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/tableFilter", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView tableFilter(@ModelAttribute("tableNumber") Integer tableNumber, BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (!bindingResult.hasErrors()) {
+            modelAndView.addObject("orders", orderService.getOrdersByTableNumber(tableNumber));
+
+            RedirectView redirectView = new RedirectView("orderHistory");
+            modelAndView.setView(redirectView);
+        } else {
+            modelAndView.setViewName("content/orderHistory");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/dateOrderFilter", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView dateOrder(@ModelAttribute("dateOrder") Date dateOrder, BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (!bindingResult.hasErrors()) {
+            modelAndView.addObject("orders", orderService.getOrdersByDateOrder(dateOrder));
+
+            RedirectView redirectView = new RedirectView("orderHistory");
+            modelAndView.setView(redirectView);
+        } else {
+            modelAndView.setViewName("content/orderHistory");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/employeeFilter", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView employeeFilter(@ModelAttribute("employee") String employeeName, BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (!bindingResult.hasErrors()) {
+            modelAndView.addObject("orders", orderService.getOrdersByEmployeeName(employeeName));
+
+            RedirectView redirectView = new RedirectView("orderHistory");
+            modelAndView.setView(redirectView);
+        } else {
+            modelAndView.setViewName("content/orderHistory");
+        }
         return modelAndView;
     }
 

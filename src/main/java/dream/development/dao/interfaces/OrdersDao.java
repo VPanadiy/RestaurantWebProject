@@ -2,6 +2,7 @@ package dream.development.dao.interfaces;
 
 import dream.development.model.Orders;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,12 @@ public interface OrdersDao {
     List<Orders> getOpened();
 
     List<Orders> getClosed();
+
+    List<Orders> getByTableNumber(Integer tableNumber);
+
+    List<Orders> getByDateOrder(Date dateOrder);
+
+    List<Orders> getByEmployeeName(String employeeName);
 
     Orders getById(Long id);
 

@@ -16,7 +16,6 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -42,7 +41,6 @@ public class MainController {
             logger.info("Update!");
         }
 
-        model.put("currentTime", new Date().toString());
         model.put("menu", menuService.getMenu());
         model.put("dishes", dishService.getDishes());
         return "index";
@@ -51,7 +49,6 @@ public class MainController {
     @RequestMapping(value = "/plan", method = RequestMethod.GET)
     public ModelAndView restaurantPlan(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.setViewName("plan");
         return modelAndView;
     }
@@ -59,7 +56,6 @@ public class MainController {
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ModelAndView contacts(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.setViewName("contacts");
         return modelAndView;
     }
@@ -67,7 +63,6 @@ public class MainController {
     @RequestMapping(value = "/searchPage", method = RequestMethod.GET)
     public ModelAndView searchPage(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.setViewName("searchPage");
         return modelAndView;
     }
@@ -77,7 +72,6 @@ public class MainController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (!bindingResult.hasErrors()) {
-            modelAndView.addObject("currentTime", new Date().toString());
             modelAndView.addObject("dishes", dishService.getDishesByValue(searchString));
             modelAndView.setViewName("searchPage");
 

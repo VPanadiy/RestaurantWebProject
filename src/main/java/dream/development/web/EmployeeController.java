@@ -38,7 +38,6 @@ public class EmployeeController {
     @RequestMapping(value = "/personal", method = RequestMethod.GET)
     public ModelAndView personal() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("personal", employeeService.getEmployees());
         modelAndView.setViewName("personal");
         return modelAndView;
@@ -47,7 +46,6 @@ public class EmployeeController {
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public ModelAndView employees() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("employee", new Employee());
         modelAndView.addObject("employees", employeeService.getEmployees());
         modelAndView.setViewName("content/employees");
@@ -57,7 +55,6 @@ public class EmployeeController {
     @RequestMapping(value = "/employee/{employeeId}_{employeeSurname}_{employeeName}", method = RequestMethod.GET)
     public ModelAndView employee(@PathVariable Long employeeId, @PathVariable String employeeName, @PathVariable String employeeSurname) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("employee", employeeService.getEmployeeById(employeeId));
         modelAndView.setViewName("content/employee");
         return modelAndView;
@@ -68,7 +65,6 @@ public class EmployeeController {
     public ModelAndView addNewEmployee(Locale locale, @ModelAttribute("employee") Employee employee, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("employees", employeeService.getEmployees());
-        modelAndView.addObject("currentTime", new Date().toString());
 
         if (!bindingResult.hasErrors()) {
             employeeService.insertEmployee(employee);
@@ -86,7 +82,6 @@ public class EmployeeController {
     @ResponseBody
     public ModelAndView deleteEmployee(@ModelAttribute("employeePage") boolean employeePage, @ModelAttribute("idEmployee") Long id, @ModelAttribute("employee") Employee employee, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("employees", employeeService.getEmployees());
         Employee existEmployee = employeeService.getEmployeeById(id);
         String employeeSurname = existEmployee.getSurname();
@@ -111,7 +106,6 @@ public class EmployeeController {
     @ResponseBody
     public ModelAndView updateEmployee(@ModelAttribute("idEmployee") Long id, @ModelAttribute("employee") Employee employee, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         Employee existEmployee = employeeService.getEmployeeById(id);
         String employeeSurname = existEmployee.getSurname();
         String employeeName = existEmployee.getName();

@@ -12,13 +12,15 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Date;
 import java.util.Locale;
 
 @Controller
@@ -35,7 +37,6 @@ public class FileController {
     public ModelAndView uploadFile(Locale locale, Principal user, @ModelAttribute("uploadedFile") UploadedFile uploadedFile, BindingResult bindingResult) throws IOException {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         Users loggedInUser = userService.findUserByName(user.getName());
 
         if (loggedInUser.getImageData() != null) {
@@ -71,7 +72,6 @@ public class FileController {
     @RequestMapping(value = "/fileUploaded", method = RequestMethod.GET)
     public ModelAndView fileUploaded() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.setViewName("content/fileUploaded");
         return modelAndView;
     }

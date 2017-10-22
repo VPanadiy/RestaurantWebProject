@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -32,7 +31,6 @@ public class UserController {
     public ModelAndView login(Locale locale, @RequestParam(value = "error", required = false) String error) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
 
         if (error != null) {
             modelAndView.addObject("error", messageSource.getMessage("invalidUserPass", new String[]{locale.getDisplayName(locale)}, locale));
@@ -47,7 +45,6 @@ public class UserController {
     public ModelAndView accessDenied(Locale locale, Principal user) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
 
         if (user != null) {
             modelAndView.addObject("errorMsg", user.getName() + messageSource.getMessage("accessDeniedForUser", new String[]{locale.getDisplayName(locale)}, locale));
@@ -64,7 +61,6 @@ public class UserController {
     public ModelAndView userPage(Principal user) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
         Users loggedInUser = userService.findUserByName(user.getName());
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("user", loggedInUser);
 
         if (loggedInUser.getImageData() != null) {
@@ -81,7 +77,6 @@ public class UserController {
     public ModelAndView adminPage(Principal user) throws UnsupportedEncodingException {
         ModelAndView modelAndView = new ModelAndView();
         Users loggedInUser = userService.findUserByName(user.getName());
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("user", loggedInUser);
 
         if (loggedInUser.getImageData() != null) {
@@ -103,7 +98,6 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView users(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("users", userService.getUsers());
         modelAndView.addObject("usersRole", userService.getUsersRole());
         modelAndView.setViewName("content/users");
@@ -121,7 +115,6 @@ public class UserController {
             modelAndView.addObject("userImage", base64Encoded);
         }
 
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("users", userService.findUserByName(username));
         modelAndView.setViewName("content/user");
         return modelAndView;

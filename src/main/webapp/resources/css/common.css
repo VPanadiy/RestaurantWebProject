@@ -96,6 +96,8 @@ img {
     text-align: right;
     margin-bottom: 0;
     margin-top: 0;
+    display: inline-flex;
+    float: right;
 }
 
 .tableMain {

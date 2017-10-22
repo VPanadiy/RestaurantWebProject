@@ -50,9 +50,39 @@
 
     <tr>
         <th><spring:message code="id" text="Id"/></th>
-        <th><spring:message code="tableNumber" text="Table number"/></th>
-        <th><spring:message code="dateOrder" text="Date order"/></th>
-        <th><spring:message code="employee" text="Employee"/></th>
+        <th>
+            <form:form action="/tableFilter" modelAttribute="orders" method="POST">
+                <label for="searchButton"><spring:message code="filter" text="Filter"/>:</label><input class="inputMain"
+                                                                                                       type="text"
+                                                                                                       id="searchButton"
+                                                                                                       name="tableNumber"
+                                                                                                       placeholder="<spring:message code="tableNumber" text="Table number"/>"><input
+                    id="searchSubmit" class="inputMain" type="submit" style="width: 100px; padding-top: 3px;"
+                    value="<spring:message code="filter" text="Filter"/>">
+            </form:form>
+        </th>
+        <th>
+            <form:form action="/dateOrderFilter" modelAttribute="orders" method="POST">
+                <label for="searchButton"><spring:message code="filter" text="Filter"/>:</label><input class="inputMain"
+                                                                                                       type="date"
+                                                                                                       id="searchButton"
+                                                                                                       name="dateOrder"
+                                                                                                       placeholder="<spring:message code="dateOrder" text="Date order"/>"><input
+                    id="searchSubmit" class="inputMain" type="submit" style="width: 100px; padding-top: 3px;"
+                    value="<spring:message code="filter" text="Filter"/>">
+            </form:form>
+        </th>
+        <th>
+            <form:form action="/employeeFilter" modelAttribute="orders" method="POST">
+                <label for="searchButton"><spring:message code="filter" text="Filter"/>:</label><input class="inputMain"
+                                                                                                       type="text"
+                                                                                                       id="searchButton"
+                                                                                                       name="employeeName"
+                                                                                                       placeholder="<spring:message code="employee" text="Employee"/>"><input
+                    id="searchSubmit" class="inputMain" type="submit" style="width: 100px; padding-top: 3px;"
+                    value="<spring:message code="filter" text="Filter"/>">
+            </form:form>
+        </th>
         <th><spring:message code="status" text="Status"/></th>
     </tr>
 
@@ -61,7 +91,7 @@
             <td>${order.id}</td>
             <td>${order.tableNumber}</td>
             <td>${order.dateOrder}</td>
-            <td>${order.waiter}</td>
+            <td>${order.waiter.name}</td>
             <td>${order.closed}</td>
         </tr>
     </c:forEach>

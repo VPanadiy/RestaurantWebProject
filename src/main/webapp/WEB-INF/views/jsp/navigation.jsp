@@ -38,14 +38,14 @@
 </head>
 <!-- /HEADER -->
 <!-- MAIN SECTION -->
-<body>
+<body onload="startTime()">
 <spring:message code="language" text="Language :"/><a href="?lang=en"><spring:message code="english"
                                                                                       text="English"/></a> | <a
         href="?lang=ru"><spring:message code="russia" text="Russia"/></a> | <a href="?lang=ua"><spring:message
         code="ukraine" text="Ukraine"/></a>
 <spring:message code="locale" text="Current Locale : "/>${pageContext.response.locale}
 
-<h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/> ${currentTime}</h2>
+<h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/> <div id="txt"></div></h2>
 <h1 class="h1Center"><spring:message code="restaurantName" text="Restaurant \"DREAM DISH\""/></h1>
 
 <table class="tableMain" align="center">
@@ -85,6 +85,24 @@
         </td>
     </tr>
 </table>
+
+<script>
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('txt').innerHTML =
+            h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 500);
+    }
+    function checkTime(i) {
+        if (i < 10) {i = "0" + i};
+        return i;
+    }
+</script>
 </body>
 <!-- /MAIN SECTION -->
 </html>

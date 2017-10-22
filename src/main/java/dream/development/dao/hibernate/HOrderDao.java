@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,13 +36,42 @@ public class HOrderDao implements OrdersDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<Orders> getOpened() {
         return sessionFactory.getCurrentSession().createQuery("SELECT o FROM Orders o WHERE o.isClosed = false ORDER BY o.id").list();
     }
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public List<Orders> getClosed() {
         return sessionFactory.getCurrentSession().createQuery("SELECT o FROM Orders o WHERE o.isClosed = true ORDER BY o.id").list();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public List<Orders> getByTableNumber(Integer tableNumber) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT o FROM Orders o WHERE o.tableNumber = :tableNumber");
+        query.setParameter("tableNumber", tableNumber);
+        return (List<Orders>) query.list();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public List<Orders> getByDateOrder(Date dateOrder) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT o FROM Orders o WHERE o.dateOrder = :dateOrder");
+        query.setParameter("dateOrder", dateOrder);
+        return (List<Orders>) query.list();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    public List<Orders> getByEmployeeName(String employeeName) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT o FROM Orders o WHERE lower(o.waiter.name) LIKE :employeeName ORDER BY o.id");
+        query.setParameter("employeeName", "%" + employeeName.toLowerCase() + "%");
+        return (List<Orders>) query.list();
     }
 
     @Override

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Date;
 import java.util.Locale;
 
 @Controller
@@ -24,7 +23,6 @@ public class MenuController {
     @RequestMapping(value = "/menus", method = RequestMethod.GET)
     public ModelAndView warehouse(@ModelAttribute("menuName") String menuName) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("menus", menuService.getMenuByNameValue(menuName));
         modelAndView.setViewName("content/menus");
         return modelAndView;
@@ -35,7 +33,6 @@ public class MenuController {
     public ModelAndView addNewMenu(Locale locale, @ModelAttribute("menu") Menu menu, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("menus", menuService.getMenu());
-        modelAndView.addObject("currentTime", new Date().toString());
 
         if (!bindingResult.hasErrors()) {
             Menu newMenu = new Menu();
@@ -56,7 +53,6 @@ public class MenuController {
     @ResponseBody
     public ModelAndView deleteMenu(@ModelAttribute("menuId") Long id, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("menus", menuService.getMenu());
 
         if (!bindingResult.hasErrors()) {
@@ -74,7 +70,6 @@ public class MenuController {
     @ResponseBody
     public ModelAndView updateMenu(@ModelAttribute("menuId") Long id, @ModelAttribute("menu")Menu menu, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("menus", menuService.getMenu());
         Menu existMenu = menuService.getMenuById(id);
 
@@ -97,7 +92,6 @@ public class MenuController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (!bindingResult.hasErrors()) {
-            modelAndView.addObject("currentTime", new Date().toString());
             modelAndView.addObject("menus", menuService.getMenuByNameValue(menuName));
 
             RedirectView redirectView = new RedirectView("menus");

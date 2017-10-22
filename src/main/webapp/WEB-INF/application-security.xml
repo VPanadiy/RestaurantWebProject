@@ -28,7 +28,6 @@
         <intercept-url pattern="/dishes" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/menus" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/orderHistory" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/orderHistory/*" access="hasRole('ROLE_ADMIN')"/>
 
         <form-login login-page='/login'
                     default-target-url="/account"

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Date;
 import java.util.Locale;
 
 @Controller
@@ -23,7 +22,6 @@ public class WarehouseController {
     @RequestMapping(value = "/warehouse", method = RequestMethod.GET)
     public ModelAndView warehouse(@ModelAttribute("ingredientName") String ingredientName) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("warehouse", warehouseService.searchIngredientsFromWarehouseByName(ingredientName));
         modelAndView.setViewName("content/warehouse");
         return modelAndView;
@@ -34,7 +32,6 @@ public class WarehouseController {
     public ModelAndView addNewIngredient(Locale locale, @ModelAttribute("ingredient") Warehouse warehouse, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("warehouse", warehouseService.getIngredientsFromWarehouse());
-        modelAndView.addObject("currentTime", new Date().toString());
 
         if (!bindingResult.hasErrors()) {
             Ingredient ingredient = new Ingredient();
@@ -61,7 +58,6 @@ public class WarehouseController {
     @ResponseBody
     public ModelAndView deleteIngredient(@ModelAttribute("ingredientId") Long id, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("warehouse", warehouseService.getIngredientsFromWarehouse());
 
         if (!bindingResult.hasErrors()) {
@@ -80,7 +76,6 @@ public class WarehouseController {
     @ResponseBody
     public ModelAndView updateIngredient(@ModelAttribute("ingredientId") Long id, @ModelAttribute("warehouse") Warehouse warehouse, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("warehouse", warehouseService.getIngredientsFromWarehouse());
         Warehouse existWarehouse = warehouseService.getIngredientsFromWarehouseById(id);
         Ingredient existIngredient = warehouseService.getIngredientsById(id);
@@ -107,7 +102,6 @@ public class WarehouseController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (!bindingResult.hasErrors()) {
-            modelAndView.addObject("currentTime", new Date().toString());
             modelAndView.addObject("warehouse", warehouseService.searchIngredientsFromWarehouseByName(ingredientName));
 
             RedirectView redirectView = new RedirectView("warehouse");

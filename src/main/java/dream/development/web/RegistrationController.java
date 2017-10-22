@@ -18,7 +18,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.util.Date;
 import java.util.Locale;
 
 @Controller
@@ -41,7 +40,6 @@ public class RegistrationController {
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
         Users user = new Users();
-        modelAndView.addObject("currentTime", new Date().toString());
         modelAndView.addObject("users", user);
         modelAndView.setViewName("registration");
         return modelAndView;
@@ -53,7 +51,6 @@ public class RegistrationController {
         Users userExistsUsername = userService.findUserByName(user.getUsername());
         Users userExistsEmail = userService.findUserByEmail(user.getEmail());
         Users userExistsSecondEmail = userService.findUserBySecondEmail(user.getSecondEmail());
-        modelAndView.addObject("currentTime", new Date().toString());
 
         if (userExistsUsername != null) {
                 bindingResult.rejectValue("username", "error.user",
@@ -103,7 +100,6 @@ public class RegistrationController {
         Users userExistsUsername = userService.findUserByName(user.getUsername());
         Users userExistsEmail = userService.findUserByEmail(user.getEmail());
         Users userExistsSecondEmail = userService.findUserBySecondEmail(user.getSecondEmail());
-        modelAndView.addObject("currentTime", new Date().toString());
 
         if (userExists.getImageData() != null) {
             byte[] encodeBase64 = Base64.encode(userExists.getImageData());
