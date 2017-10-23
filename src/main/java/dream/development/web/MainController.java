@@ -1,5 +1,7 @@
 package dream.development.web;
 
+import dream.development.model.objects.Currency;
+import dream.development.parseXML.ParseXML;
 import dream.development.service.DishService;
 import dream.development.service.MenuService;
 import org.slf4j.Logger;
@@ -16,6 +18,9 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +44,19 @@ public class MainController {
             logger.info("Redirect!");
         } else {
             logger.info("Update!");
+        }
+
+        try {
+
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser saxParser = factory.newSAXParser();
+            ParseXML parseXML = new ParseXML();
+            saxParser.parse("http://bank-ua.com/export/currrate.xml", parseXML);
+            List<Currency> currencyList = parseXML.getCurrencyList();
+            model.put("currency", currencyList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         model.put("menu", menuService.getMenu());

@@ -45,7 +45,27 @@
         code="ukraine" text="Ukraine"/></a>
 <spring:message code="locale" text="Current Locale : "/>${pageContext.response.locale}
 
-<h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/> <div id="txt"></div></h2>
+<h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/>
+    <div id="txt"></div>
+</h2>
+
+<div style="clear: both">
+    <p>Currency for ${currency[0].date}</p>
+    <c:forEach items="${currency}" var="cur">
+        <c:choose>
+            <c:when test="${'USD'.equals(cur.chars) || 'EUR'.equals(cur.chars) || 'RUB'.equals(cur.chars)}">
+                <table>
+                    <tr>
+                        <td>${cur.chars}</td>
+                        <td>${cur.size}</td>
+                        <td>${cur.rate}</td>
+                    </tr>
+                </table>
+            </c:when>
+        </c:choose>
+    </c:forEach>
+</div>
+
 <h1 class="h1Center"><spring:message code="restaurantName" text="Restaurant \"DREAM DISH\""/></h1>
 
 <table class="tableMain" align="center">
@@ -70,17 +90,20 @@
                 <c:when test="${pageContext.request.userPrincipal.authenticated}">
                     <c:choose>
                         <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
-                            <a href="<c:url value="/admin"/>"><spring:message code="admin" text="Administrator page"/></a><br>
+                            <a href="<c:url value="/admin"/>"><spring:message code="admin"
+                                                                              text="Administrator page"/></a><br>
                         </c:when>
                         <c:otherwise>
-                            <a href="<c:url value="/account"/>"><spring:message code="userPage" text="User page"/></a><br>
+                            <a href="<c:url value="/account"/>"><spring:message code="userPage"
+                                                                                text="User page"/></a><br>
                         </c:otherwise>
                     </c:choose>
                     <form:form action="${pageContext.request.contextPath}/logout" method="POST">
                         <input type="submit" value="<spring:message code="logout" text="Logout"/>"/>
                     </form:form>
                 </c:when>
-                <c:otherwise><a href="<c:url value="/login"/>"><spring:message code="login" text="Login"/></a></c:otherwise>
+                <c:otherwise><a href="<c:url value="/login"/>"><spring:message code="login"
+                                                                               text="Login"/></a></c:otherwise>
             </c:choose>
         </td>
     </tr>
@@ -89,17 +112,51 @@
 <script>
     function startTime() {
         var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+        var day = today.getDate();
+        var year = today.getFullYear();
+
+        var weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        var dayName = weekday[today.getDay()];
+
+        var month = new Array(12);
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+
+        var monthName = month[today.getMonth()];
+
+        minutes = checkTime(minutes);
+        seconds = checkTime(seconds);
         document.getElementById('txt').innerHTML =
-            h + ":" + m + ":" + s;
+            monthName + " " + day + ", " + year + " | " + dayName + ", " + hours + ":" + minutes + ":" + seconds;
         var t = setTimeout(startTime, 500);
     }
+
     function checkTime(i) {
-        if (i < 10) {i = "0" + i};
+        if (i < 10) {
+            i = "0" + i
+        }
+        ;  // add zero in front of numbers < 10
         return i;
     }
 </script>
