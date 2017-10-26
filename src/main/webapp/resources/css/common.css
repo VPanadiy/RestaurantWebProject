@@ -133,18 +133,16 @@ img {
 }
 
 #menu {
-    width: 125%;
     border: none;
 }
 
 #menuTable0, #menuTable1, #menuTable2, #menuTable3, #menuTable4, #menuTable5 {
-    width: 50%;
-    margin-left: 40px;
+    width: 100%;
     border: none;
 }
 
 #menuTable1 {
-    margin-top: -105px;
+    margin-top: -95px;
 }
 
 #menuTable4 {
@@ -192,6 +190,8 @@ img {
 }
 
 #tdMenuTable0, #tdMenuTable1, #tdMenuTable2, #tdMenuTable3, #tdMenuTable4, #tdMenuTable5 {
+    padding-left: 50px;
+    padding-right: 50px;
     border: none;
 }
 

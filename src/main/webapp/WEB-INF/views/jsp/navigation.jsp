@@ -4,6 +4,7 @@
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -54,13 +55,8 @@
     <c:forEach items="${currency}" var="cur">
         <c:choose>
             <c:when test="${'USD'.equals(cur.chars) || 'EUR'.equals(cur.chars) || 'RUB'.equals(cur.chars)}">
-                <table>
-                    <tr>
-                        <td>${cur.chars}</td>
-                        <td>${cur.size}</td>
-                        <td>${cur.rate}</td>
-                    </tr>
-                </table>
+                <td>${cur.chars}</td>
+                <td><fmt:formatNumber value="${cur.rate/cur.size}" maxFractionDigits="2"/></td>
             </c:when>
         </c:choose>
     </c:forEach>

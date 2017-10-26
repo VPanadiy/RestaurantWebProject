@@ -2,9 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:cache="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd ">
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
@@ -44,5 +44,29 @@
     <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+
+    <!--Spring AOP transactions-->
+    <tx:advice id="adviceTransactionHImpl" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="MANDATORY" read-only="false"
+                       isolation="DEFAULT" />
+        </tx:attributes>
+    </tx:advice>
+
+    <tx:advice id="adviceTransactionService" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" read-only="false"
+                       isolation="DEFAULT" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:advisor
+                pointcut="execution(* dream.development.dao.hibernate.*.*(..))"
+                advice-ref="adviceTransactionHImpl" />
+        <aop:advisor
+                pointcut="execution(* dream.development.service.*.*(..))"
+                advice-ref="adviceTransactionService" />
+    </aop:config>
 
 </beans>

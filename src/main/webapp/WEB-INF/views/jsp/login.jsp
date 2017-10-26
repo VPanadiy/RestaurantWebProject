@@ -40,7 +40,7 @@
 </head>
 <!-- /HEADER -->
 <!-- MAIN SECTION -->
-<body>
+<body onload="startTime()">
 
 <spring:message code="language" text="Language :"/><a href="?lang=en"><spring:message code="english"
                                                                                       text="English"/></a> | <a
@@ -48,9 +48,9 @@
         code="ukraine" text="Ukraine"/></a>
 <spring:message code="locale" text="Current Locale : "/>${pageContext.response.locale}
 
-<h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/> ${currentTime}</h2>
+<h2 id="h2Time"><spring:message code="timeNow" text="Time now is:"/><div id="txt"></div></h2>
 
-<p class="pLeft"><a href="<c:url value="/"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message code="home" text="Home"/></a></p>
+<p class="pLeft" style="margin-top: 15px;"><a href="<c:url value="/"/>"><spring:message code="goBack" text="← Go back to"/> <spring:message code="home" text="Home"/></a></p>
 
 <div class="container">
 
@@ -85,6 +85,58 @@
     </form:form>
 
 </div>
+
+<script>
+    function startTime() {
+        var today = new Date();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+        var day = today.getDate();
+        var year = today.getFullYear();
+
+        var weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        var dayName = weekday[today.getDay()];
+
+        var month = new Array(12);
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+
+        var monthName = month[today.getMonth()];
+
+        minutes = checkTime(minutes);
+        seconds = checkTime(seconds);
+        document.getElementById('txt').innerHTML =
+            monthName + " " + day + ", " + year + " | " + dayName + ", " + hours + ":" + minutes + ":" + seconds;
+        var t = setTimeout(startTime, 500);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i
+        }
+        ;  // add zero in front of numbers < 10
+        return i;
+    }
+</script>
 </body>
 <!-- /MAIN SECTION -->
 <!-- FOOTER -->
